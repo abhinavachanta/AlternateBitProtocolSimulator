@@ -23,12 +23,10 @@ using hclock = chrono::high_resolution_clock;
 using TIME = NDTime;
 
 /***** SETING INPUT PORTS FOR COUPLEDs *****/
-struct inp_in: public cadmium::in_port <Message_t>
-{};
+struct inp_in: public cadmium::in_port <Message_t> {};
 
 /***** SETING OUTPUT PORTS FOR COUPLEDs *****/
-struct outp_out: public cadmium::out_port <Message_t>
-{};
+struct outp_out: public cadmium::out_port <Message_t> {};
 
 /********************************************/
 /****** APPLICATION GENERATOR *******************/
