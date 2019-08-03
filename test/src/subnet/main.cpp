@@ -23,19 +23,19 @@ using high_resolution_clock = chrono::high_resolution_clock;
 using TIME = NDTime;
 
 /***** SETING INPUT PORTS FOR COUPLEDs *****/
-struct input_port: public cadmium::in_port <Message_t> {};
+struct input_port: public cadmium::in_port <message_t> {};
 
 /***** SETING OUTPUT PORTS FOR COUPLEDs *****/
-struct output_port: public cadmium::out_port <Message_t> {};
+struct output_port: public cadmium::out_port <message_t> {};
 
 /********************************************/
 /****** APPLICATION GENERATOR *******************/
 /********************************************/
 template <typename T>
-    class ApplicationGen: public iestream_input <Message_t, T>
+    class ApplicationGen: public iestream_input <message_t, T>
     {
         public: ApplicationGen() = default;
-        ApplicationGen(const char *file_path): iestream_input <Message_t, T> (file_path) {}
+        ApplicationGen(const char *file_path): iestream_input <message_t, T> (file_path) {}
     };
 
 int main()
@@ -109,7 +109,7 @@ int main()
     };
     cadmium::dynamic::modeling::ICs ics_TOP = {
 										cadmium::dynamic::translate::make_IC <iestream_input_defs 
-																					<Message_t>::out, subnet_defs:: in> ("generator", "subnet1")
+																					<message_t>::out, subnet_defs:: in> ("generator", "subnet1")
     };
     std::shared_ptr <cadmium::dynamic::modeling::coupled <TIME>> TOP = 
 		std::make_shared <cadmium::dynamic::modeling::coupled <TIME>> (

@@ -29,8 +29,8 @@ using namespace std;
 //Port definition
 struct receiver_defs
 {
-    struct out: public out_port <Message_t> {};
-    struct in: public in_port <Message_t> {};
+    struct out: public out_port <message_t> {};
+    struct in: public in_port <message_t> {};
 };
 
 template <typename TIME>
@@ -39,11 +39,11 @@ template <typename TIME>
         using definitions = receiver_defs; // putting definitions in context
         public:
             //Parameters to be overwriten when instantiating the atomic model
-            TIME preparation_time;
+            TIME PREPARATION_TIME;
         // default constructor
         Receiver() noexcept
         {
-            preparation_time = TIME("00:00:10");
+            PREPARATION_TIME = TIME("00:00:10");
             state.acknowledgement_number = 0;
             state.sending = false;
         }
@@ -82,7 +82,8 @@ template <typename TIME>
         }
 
         // confluence transition
-        void confluence_transition(TIME e, typename make_message_bags <input_ports>::type mbs)
+        void confluence_transition(TIME e, typename make_message_bags 
+															<input_ports>::type mbs)
         {
             internal_transition();
             external_transition(TIME(), std::move(mbs));
@@ -92,7 +93,7 @@ template <typename TIME>
         typename make_message_bags <output_ports>::type output() const
         {
             typename make_message_bags <output_ports>::type bags;
-            Message_t out;
+            message_t out;
             out.value = state.acknowledgement_number % 10;
             get_messages <typename definitions::out> (bags).push_back(out);
 
@@ -106,7 +107,7 @@ template <typename TIME>
             TIME next_internal;
             if (state.sending)
             {
-                next_internal = preparation_time;
+                next_internal = PREPARATION_TIME;
             }
             else
             {

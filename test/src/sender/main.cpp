@@ -23,22 +23,22 @@ using high_resolution_clock = chrono::high_resolution_clock;
 using TIME = NDTime;
 
 /***** SETING INPUT PORTS FOR COUPLEDs *****/
-struct input_port: public cadmium::in_port <Message_t> {};
-struct input_acknowledgement: public cadmium::in_port <Message_t> {};
+struct input_port: public cadmium::in_port <message_t> {};
+struct input_acknowledgement: public cadmium::in_port <message_t> {};
 
 /***** SETING OUTPUT PORTS FOR COUPLEDs *****/
-struct output_acknowledgement: public cadmium::out_port <Message_t> {};
-struct output_data: public cadmium::out_port <Message_t> {};
-struct output_pack: public cadmium::out_port <Message_t> {};
+struct output_acknowledgement: public cadmium::out_port <message_t> {};
+struct output_data: public cadmium::out_port <message_t> {};
+struct output_pack: public cadmium::out_port <message_t> {};
 
 /********************************************/
 /****** APPLICATION GENERATOR *******************/
 /********************************************/
 template <typename T>
-    class ApplicationGen: public iestream_input <Message_t, T>
+    class ApplicationGen: public iestream_input <message_t, T>
     {
         public: ApplicationGen() = default;
-        ApplicationGen(const char *file_path): iestream_input <Message_t, T> (file_path)
+        ApplicationGen(const char *file_path): iestream_input <message_t, T> (file_path)
         {}
     };
 
@@ -126,9 +126,9 @@ int main()
     };
     cadmium::dynamic::modeling::ICs ics_TOP = {
 									cadmium::dynamic::translate::make_IC <iestream_input_defs 
-																				<Message_t>::out, sender_defs::controlIn> ("generator_con", "sender1"),
+																				<message_t>::out, sender_defs::controlIn> ("generator_con", "sender1"),
 																																			cadmium::dynamic::translate::make_IC <iestream_input_defs 
-																																															<Message_t>::out, sender_defs::ackIn> ("generator_ack", "sender1")
+																																															<message_t>::out, sender_defs::ackIn> ("generator_ack", "sender1")
     };
     std::shared_ptr <cadmium::dynamic::modeling::coupled <TIME>> TOP = 
 		std::make_shared <cadmium::dynamic::modeling::coupled <TIME>> (
