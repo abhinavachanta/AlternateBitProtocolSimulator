@@ -108,11 +108,11 @@ int main()
     cadmium::dynamic::modeling::EICs eics_TOP = {};
     cadmium::dynamic::modeling::EOCs eocs_TOP = {
         cadmium::dynamic::translate::make_EOC 
-			<Receiver_defs::out, output_port> ("receiver1")
+			<receiver_defs::out, output_port> ("receiver1")
     };
     cadmium::dynamic::modeling::ICs ics_TOP = {
         cadmium::dynamic::translate::make_IC <iestream_input_defs 
-			<Message_t>::out, Receiver_defs:: in> ("generator", "receiver1")
+			<Message_t>::out, receiver_defs:: in> ("generator", "receiver1")
     };
     std::shared_ptr <cadmium::dynamic::modeling::coupled <TIME>> TOP = 
 		std::make_shared <cadmium::dynamic::modeling::coupled <TIME>> (

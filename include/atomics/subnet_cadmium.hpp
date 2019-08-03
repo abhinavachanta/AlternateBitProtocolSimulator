@@ -27,7 +27,7 @@ using namespace cadmium;
 using namespace std;
 
 //Port definition
-struct Subnet_defs
+struct subnet_defs
 {
     struct out: public out_port <Message_t> {};
     struct in: public in_port <Message_t> {};
@@ -36,7 +36,7 @@ struct Subnet_defs
 template <typename TIME>
     class Subnet
     {
-        using definitions = Subnet_defs; // putting definitions in context
+        using definitions = subnet_defs; // putting definitions in context
         public:
             //Parameters to be overwriten when instantiating the atomic model
 
