@@ -40,12 +40,12 @@ template <typename TIME>
         using definitions = Sender_defs; // putting definitions in context
         public:
             //Parameters to be overwriten when instantiating the atomic model
-            TIME preparationTime;
+            TIME preparation_time;
         TIME timeout;
         // default constructor
         Sender() noexcept
         {
-            preparationTime = TIME("00:00:10");
+            preparation_time = TIME("00:00:10");
             timeout = TIME("00:00:20");
             state.alt_bit = 0;
             state.next_internal = std::numeric_limits <TIME>::infinity();
@@ -56,8 +56,8 @@ template <typename TIME>
         struct state_type
         {
             bool ack;
-            int packetNum;
-            int totalPacketNum;
+            int packet_number;
+            int total_packet_number;
             int alt_bit;
             bool sending;
             bool model_active;
@@ -66,23 +66,23 @@ template <typename TIME>
         state_type state;
         // ports definition
         using input_ports = std::tuple <typename definitions::controlIn, 
-			typename definitions::ackIn> ;
+																typename definitions::ackIn> ;
         using output_ports = std::tuple <typename definitions::packetSentOut, 
-			typename definitions::ackReceivedOut, typename definitions::dataOut> ;
+																typename definitions::ackReceivedOut, typename definitions::dataOut> ;
 
         // internal transition
         void internal_transition()
         {
             if (state.ack)
             {
-                if (state.packetNum < state.totalPacketNum)
+                if (state.packet_number < state.total_packet_number)
                 {
-                    state.packetNum++;
+                    state.packet_number++;
                     state.ack = false;
                     state.alt_bit = (state.alt_bit + 1) % 2;
                     state.sending = true;
                     state.model_active = true;
-                    state.next_internal = preparationTime;
+                    state.next_internal = preparation_time;
                 }
                 else
                 {
@@ -102,7 +102,7 @@ template <typename TIME>
                 {
                     state.sending = true;
                     state.model_active = true;
-                    state.next_internal = preparationTime;
+                    state.next_internal = preparation_time;
                 }
             }
         }
@@ -111,20 +111,23 @@ template <typename TIME>
         void external_transition(TIME e, typename make_message_bags <input_ports>::type mbs)
         {
             if ((get_messages <typename definitions::controlIn> (mbs).size() + get_messages 
-				<typename definitions::ackIn> (mbs).size()) > 1) assert(false && "one message per time uniti");
+																			<typename definitions::ackIn> (mbs).size()) > 1)
+				{
+					assert(false && "one message per time uniti");
+				}
             for (const auto &x: get_messages <typename definitions::controlIn> (mbs))
             {
                 if (state.model_active == false)
                 {
-                    state.totalPacketNum = static_cast <int> (x.value);
-                    if (state.totalPacketNum > 0)
+                    state.total_packet_number = static_cast <int> (x.value);
+                    if (state.total_packet_number > 0)
                     {
-                        state.packetNum = 1;
+                        state.packet_number = 1;
                         state.ack = false;
                         state.sending = true;
-                        state.alt_bit = state.packetNum % 2; //set initial alt_bit
+                        state.alt_bit = state.packet_number % 2; //set initial alt_bit
                         state.model_active = true;
-                        state.next_internal = preparationTime;
+                        state.next_internal = preparation_time;
                     }
                     else
                     {
@@ -159,7 +162,7 @@ template <typename TIME>
 
         // confluence transition
         void confluence_transition(TIME e, typename make_message_bags 
-			<input_ports>::type mbs)
+																<input_ports>::type mbs)
         {
             internal_transition();
             external_transition(TIME(), std::move(mbs));
@@ -172,9 +175,9 @@ template <typename TIME>
             Message_t out;
             if (state.sending)
             {
-                out.value = state.packetNum * 10 + state.alt_bit;
+                out.value = state.packet_number * 10 + state.alt_bit;
                 get_messages <typename definitions::dataOut> (bags).push_back(out);
-                out.value = state.packetNum;
+                out.value = state.packet_number;
                 get_messages <typename definitions::packetSentOut> (bags).push_back(out);
             }
             else
@@ -198,7 +201,7 @@ template <typename TIME>
         friend std::ostringstream &operator << (std::ostringstream &os, 
 			const typename Sender <TIME>::state_type &i)
         {
-            os << "packetNum: " << i.packetNum << " &totalPacketNum: " << i.totalPacketNum;
+            os << "packet_number: " << i.packet_number << " &total_packet_number: " << i.total_packet_number;
             return os;
         }
     };

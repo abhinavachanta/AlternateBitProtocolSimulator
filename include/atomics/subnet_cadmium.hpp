@@ -67,11 +67,13 @@ template <typename TIME>
 
         // external transition
         void external_transition(TIME e, typename make_message_bags 
-			<input_ports>::type mbs)
+															<input_ports>::type mbs)
         {
             state.index++;
             if (get_messages <typename definitions:: in> (mbs).size() > 1) 
-					assert(false && "One message at a time");
+			{
+				assert(false && "One message at a time");
+			}
             for (const auto &x: get_messages <typename definitions:: in> (mbs))
             {
                 state.packet = static_cast <int> (x.value);
@@ -81,7 +83,7 @@ template <typename TIME>
 
         // confluence transition
         void confluence_transition(TIME e, typename make_message_bags 
-			<input_ports>::type mbs)
+															<input_ports>::type mbs)
         {
             internal_transition();
             external_transition(TIME(), std::move(mbs));
@@ -109,7 +111,7 @@ template <typename TIME>
             if (state.transmiting)
             {
                 std::initializer_list<int> time = {
-                    0, 0, static_cast <int> (round(distribution(generator)))
+										0, 0, static_cast <int> (round(distribution(generator)))
                 };
                 // time is hour min and second
                 next_internal = TIME(time);
@@ -122,7 +124,7 @@ template <typename TIME>
         }
 
         friend std::ostringstream &operator << (std::ostringstream &os, 
-			const typename Subnet <TIME>::state_type &i)
+																const typename Subnet <TIME>::state_type &i)
         {
             os << "index: " << i.index << " &transmiting: " << i.transmiting;
             return os;

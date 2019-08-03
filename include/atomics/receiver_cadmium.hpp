@@ -39,19 +39,19 @@ template <typename TIME>
         using definitions = Receiver_defs; // putting definitions in context
         public:
             //Parameters to be overwriten when instantiating the atomic model
-            TIME preparationTime;
+            TIME preparation_time;
         // default constructor
         Receiver() noexcept
         {
-            preparationTime = TIME("00:00:10");
-            state.ackNum = 0;
+            preparation_time = TIME("00:00:10");
+            state.acknowledgement_number = 0;
             state.sending = false;
         }
 
         // state definition
         struct state_type
         {
-            int ackNum;
+            int acknowledgement_number;
             bool sending;
         };
         state_type state;
@@ -69,11 +69,13 @@ template <typename TIME>
         void external_transition(TIME e, typename make_message_bags 
 			<input_ports>::type mbs)
         {
-            if (get_messages <typename definitions:: in> (mbs).size() > 1) assert(false && 
-				"one message per time uniti");
+            if (get_messages <typename definitions:: in> (mbs).size() > 1) 
+			{
+				assert(false && "one message per time uniti");
+			}
             for (const auto &x: get_messages <typename definitions:: in> (mbs))
             {
-                state.ackNum = static_cast <int> (x.value);
+                state.acknowledgement_number = static_cast <int> (x.value);
                 state.sending = true;
             }
 
@@ -91,7 +93,7 @@ template <typename TIME>
         {
             typename make_message_bags <output_ports>::type bags;
             Message_t out;
-            out.value = state.ackNum % 10;
+            out.value = state.acknowledgement_number % 10;
             get_messages <typename definitions::out> (bags).push_back(out);
 
             return bags;
@@ -104,7 +106,7 @@ template <typename TIME>
             TIME next_internal;
             if (state.sending)
             {
-                next_internal = preparationTime;
+                next_internal = preparation_time;
             }
             else
             {
@@ -114,9 +116,9 @@ template <typename TIME>
         }
 
         friend std::ostringstream &operator << (std::ostringstream &os, 
-			const typename Receiver <TIME>::state_type &i)
+																const typename Receiver <TIME>::state_type &i)
         {
-            os << "ackNum: " << i.ackNum;
+            os << "acknowledgement_number: " << i.acknowledgement_number;
             return os;
         }
     };
