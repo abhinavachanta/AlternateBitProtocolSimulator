@@ -23,14 +23,14 @@ tests: test_subnet_main.o test_sender_main.o test_receiver_main.o message.o
 main.o: src/top_model/main.cpp
 	$(CC) -g -c $(CFLAGS) $(INCLUDECADMIUM) src/top_model/main.cpp -o build/src/main.o
 	
-test_subnet_main.o: test/src/subnet/main.cpp
-	$(CC) -g -c $(CFLAGS) $(INCLUDECADMIUM) test/src/subnet/main.cpp -o build/test/subnet/main.o
+test_subnet_main.o: test/src/subnet/main_subnet.cpp
+	$(CC) -g -c $(CFLAGS) $(INCLUDECADMIUM) test/src/subnet/main_subnet.cpp -o build/test/subnet/main.o
 
-test_sender_main.o: test/src/sender/main.cpp
-	$(CC) -g -c $(CFLAGS) $(INCLUDECADMIUM) test/src/sender/main.cpp -o build/test/sender/main.o
+test_sender_main.o: test/src/sender/main_sender.cpp
+	$(CC) -g -c $(CFLAGS) $(INCLUDECADMIUM) test/src/sender/main_sender.cpp -o build/test/sender/main.o
 
-test_receiver_main.o: test/src/receiver/main.cpp
-	$(CC) -g -c $(CFLAGS) $(INCLUDECADMIUM) test/src/receiver/main.cpp -o build/test/receiver/main.o
+test_receiver_main.o: test/src/receiver/main_receiver.cpp
+	$(CC) -g -c $(CFLAGS) $(INCLUDECADMIUM) test/src/receiver/main_receiver.cpp -o build/test/receiver/main.o
 
 message.o: 
 	$(CC) -g -c $(CFLAGS) $(INCLUDECADMIUM) src/data_structures/message.cpp -o build/src/message.o
