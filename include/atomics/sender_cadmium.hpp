@@ -102,7 +102,7 @@ template <typename TIME>
 
 			// external transition
 			void external_transition(TIME e,
-								 typename make_message_bags <input_ports>::type mbs){
+								     typename make_message_bags <input_ports>::type mbs){
         
 				if ((get_messages <typename definitions::controlIn> (mbs).size() +
 					get_messages <typename definitions::ackIn> (mbs).size()) > 1){
@@ -144,7 +144,7 @@ template <typename TIME>
 
 			// confluence transition
 			void confluence_transition(TIME e, 
-								   typename make_message_bags <input_ports>::type mbs){
+								       typename make_message_bags <input_ports>::type mbs){
 			    internal_transition();
 				external_transition(TIME(), std::move(mbs));
 			}
@@ -174,7 +174,7 @@ template <typename TIME>
 				return state.next_internal;
 			}
 			friend std::ostringstream &operator << (std::ostringstream &os, 
-												const typename Sender <TIME>::state_type &i){
+												    const typename Sender <TIME>::state_type &i){
 				os << "packet_number: " << i.packet_number << " &total_packet_number: " <<
 				i.total_packet_number;
 				return os;

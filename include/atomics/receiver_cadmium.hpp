@@ -41,11 +41,11 @@ using namespace std;
         using defs = receiver_defs; // putting definitions in context
         public:
             //Parameters to be overwriten when instantiating the atomic model
-            TIME    preparation_time;
+            TIME	PREPARATION_TIME;
 
             // default constructor
             Receiver() noexcept{
-              preparation_time  = TIME("00:00:10");
+              PREPARATION_TIME  = TIME("00:00:10");
 				state.acknowledgement_num    = 0;
 				state.sending    = false;
             }
@@ -80,8 +80,8 @@ using namespace std;
             }
 
             // confluence transition
-            void confluence_transition(
-				TIME e,typename make_message_bags<input_ports>::type mbs) {
+            void confluence_transition(TIME e,
+									   typename make_message_bags<input_ports>::type mbs) {
                 internal_transition();
                 external_transition(TIME(), std::move(mbs));
 			}
@@ -99,7 +99,7 @@ using namespace std;
             TIME time_advance() const {  
 				TIME next_internal;
 				if (state.sending) {
-                next_internal = preparation_time;
+                next_internal = PREPARATION_TIME;
                 }
 					else {
                 next_internal = std::numeric_limits<TIME>::infinity();
@@ -107,9 +107,8 @@ using namespace std;
             return next_internal;
             }
 
-            friend std::ostringstream& operator<<(
-				std::ostringstream& os,
-				const typename Receiver<TIME>::state_type& i) {
+            friend std::ostringstream& operator<<(std::ostringstream& os,
+												  const typename Receiver<TIME>::state_type& i) {		
                 os << "acknowledgement_num: " << i.acknowledgement_num; 
 				return os;
             }
