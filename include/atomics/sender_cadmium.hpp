@@ -3,9 +3,9 @@
  *ARSLab - Carleton University
  */
 
-#ifndef BOOST_SIMULATION_PDEVS_SENDER_HPP
+#ifndef _BOOST_SIMULATION_PDEVS_SENDER_HPP_
 
-#define BOOST_SIMULATION_PDEVS_SENDER_HPP
+#define _BOOST_SIMULATION_PDEVS_SENDER_HPP_
 #include <cadmium/modeling/ports.hpp>
 #include <cadmium/modeling/message_bag.hpp>
 #include <limits>
@@ -20,14 +20,15 @@
 #include <algorithm>
 #include <limits>
 #include <random>
+
 #include "../data_structures/message.hpp"
+
 using namespace cadmium;
 using namespace std;
 
 //Port definition
-struct sender_defs
-{
-    struct packetSentOut: public out_port <message_t> {};
+struct sender_defs{
+	struct packetSentOut: public out_port <message_t> {};
     struct ackReceivedOut: public out_port <message_t> {};
     struct dataOut: public out_port <message_t> {};
     struct controlIn: public in_port <message_t> {};
@@ -41,170 +42,143 @@ template <typename TIME>
         public:
             //Parameters to be overwriten when instantiating the atomic model
             TIME PREPARATION_TIME;
-        TIME timeout;
-        // default constructor
-        Sender() noexcept
-        {
-            PREPARATION_TIME = TIME("00:00:10");
-            timeout = TIME("00:00:20");
-            state.alt_bit = 0;
-            state.next_internal = std::numeric_limits <TIME>::infinity();
-            state.model_active = false;
-        }
+			TIME timeout;
+			// default constructor
+			Sender() noexcept{\
+				PREPARATION_TIME = TIME("00:00:10");
+				timeout = TIME("00:00:20");
+				state.alt_bit = 0;
+				state.next_internal = std::numeric_limits <TIME>::infinity();
+				state.model_active = false;
+			}
 
-        // state definition
-        struct state_type
-        {
-            bool ack;
-            int packet_number;
-            int total_packet_number;
-            int alt_bit;
-            bool sending;
-            bool model_active;
-            TIME next_internal;
-        };
-        state_type state;
-        // ports definition
-        using input_ports = std::tuple <typename definitions::controlIn, 
-																typename definitions::ackIn> ;
-        using output_ports = std::tuple <typename definitions::packetSentOut, 
-																typename definitions::ackReceivedOut, typename definitions::dataOut> ;
+			// state definition
+			struct state_type{
+				bool ack;
+				int packet_number;
+				int total_packet_number;
+				int alt_bit;
+				bool sending;
+				bool model_active;
+				TIME next_internal;
+			};
+			state_type state;
+			// ports definition
+			using input_ports = std::tuple <typename definitions::controlIn, 
+											typename definitions::ackIn> ;
+			using output_ports = std::tuple <typename definitions::packetSentOut, 
+											typename definitions::ackReceivedOut, 
+											typename definitions::dataOut> ;
 
-        // internal transition
-        void internal_transition()
-        {
-            if (state.ack)
-            {
-                if (state.packet_number < state.total_packet_number)
-                {
-                    state.packet_number++;
-                    state.ack = false;
-                    state.alt_bit = (state.alt_bit + 1) % 2;
-                    state.sending = true;
-                    state.model_active = true;
-                    state.next_internal = PREPARATION_TIME;
-                }
-                else
-                {
-                    state.model_active = false;
-                    state.next_internal = std::numeric_limits <TIME>::infinity();
-                }
-            }
-            else
-            {
-                if (state.sending)
-                {
-                    state.sending = false;
-                    state.model_active = true;
-                    state.next_internal = timeout;
-                }
-                else
-                {
-                    state.sending = true;
-                    state.model_active = true;
-                    state.next_internal = PREPARATION_TIME;
-                }
-            }
-        }
+			// internal transition
+			void internal_transition(){			
+				if (state.ack){
+					if (state.packet_number < state.total_packet_number){
+						state.packet_number++;
+						state.ack = false;
+						state.alt_bit = (state.alt_bit + 1) % 2;
+						state.sending = true;
+						state.model_active = true;
+						state.next_internal = PREPARATION_TIME;
+					}
+					else{
+						state.model_active = false;
+						state.next_internal = std::numeric_limits <TIME>::infinity();
+					}
+				}
+				else{
+				    if (state.sending){
+					    state.sending = false;
+						state.model_active = true;
+						state.next_internal = timeout;
+					}
+					else{
+						state.sending = true;
+						state.model_active = true;
+						state.next_internal = PREPARATION_TIME;
+					}
+				}
+			}
 
-        // external transition
-        void external_transition(TIME e,
-								 typename make_message_bags <input_ports>::type mbs)
-        {
-            if ((get_messages <typename definitions::controlIn> (mbs).size() + get_messages 
-																				<typename definitions::ackIn> (mbs).size()) > 1)
-				{
+			// external transition
+			void external_transition(TIME e,
+								 typename make_message_bags <input_ports>::type mbs){
+        
+				if ((get_messages <typename definitions::controlIn> (mbs).size() +
+					get_messages <typename definitions::ackIn> (mbs).size()) > 1){
 					assert(false && "one message per time uniti");
 				}
-            for (const auto &x: get_messages <typename definitions::controlIn> (mbs))
-            {
-                if (state.model_active == false)
-                {
-                    state.total_packet_number = static_cast <int> (x.value);
-                    if (state.total_packet_number > 0)
-                    {
-                        state.packet_number = 1;
-                        state.ack = false;
-                        state.sending = true;
-                        state.alt_bit = state.packet_number % 2; //set initial alt_bit
-                        state.model_active = true;
-                        state.next_internal = PREPARATION_TIME;
-                    }
-                    else
-                    {
-                        if (state.next_internal != std::numeric_limits <TIME>::infinity())
-                        {
-                            state.next_internal = state.next_internal - e;
-                        }
-                    }
-                }
-            }
-            for (const auto &x: get_messages <typename definitions::ackIn> (mbs))
-            {
-                if (state.model_active == true)
-                {
-                    if (state.alt_bit == static_cast <int> (x.value))
-                    {
-                        state.ack = true;
-                        state.sending = false;
-                        state.next_internal = TIME("00:00:00");
-                    }
-                    else
-                    {
-                        if (state.next_internal != std::numeric_limits <TIME>::infinity())
-                        {
-                            state.next_internal = state.next_internal - e;
-                        }
-                    }
-                }
-            }
+				for (const auto &x: get_messages <typename definitions::controlIn> (mbs)){
+					if (state.model_active == false){
+						state.total_packet_number = static_cast <int> (x.value);
+						if (state.total_packet_number > 0){
+							state.packet_number = 1;
+							state.ack = false;
+							state.sending = true;
+							state.alt_bit = state.packet_number % 2; //set initial alt_bit
+							state.model_active = true;
+							state.next_internal = PREPARATION_TIME;
+						}
+						else{
+							if (state.next_internal != std::numeric_limits <TIME>::infinity()){                        
+								state.next_internal = state.next_internal - e;
+							}
+						}
+				    }
+				}
+				for (const auto &x: get_messages <typename definitions::ackIn> (mbs)){       
+					if (state.model_active == true){
+						if (state.alt_bit == static_cast <int> (x.value)){
+							state.ack = true;
+							state.sending = false;
+							state.next_internal = TIME("00:00:00");
+						}	
+	                    else{                    
+	                        if (state.next_internal != std::numeric_limits <TIME>::infinity()){                        
+	                            state.next_internal = state.next_internal - e;
+	                        }
+	                    }
+	                }
+	            }
+	        }
 
-        }
+			// confluence transition
+			void confluence_transition(TIME e, 
+								   typename make_message_bags <input_ports>::type mbs){
+			    internal_transition();
+				external_transition(TIME(), std::move(mbs));
+			}
 
-        // confluence transition
-        void confluence_transition(TIME e, 
-								   typename make_message_bags <input_ports>::type mbs)
-        {
-            internal_transition();
-            external_transition(TIME(), std::move(mbs));
-        }
+			// output function
+			typename make_message_bags <output_ports>::type output() const {
+				typename make_message_bags <output_ports>::type bags;
+				message_t out;
+				if (state.sending)
+				{
+					out.value = state.packet_number * 10 + state.alt_bit;
+					get_messages <typename definitions::dataOut> (bags).push_back(out);
+					out.value = state.packet_number;
+					get_messages <typename definitions::packetSentOut> (bags).push_back(out);
+				}
+				else{
+					if (state.ack){
+						out.value = state.alt_bit;
+						get_messages <typename definitions::ackReceivedOut> (bags).push_back(out);
+				    }
+				}
+				return bags;
+			}
+	        
+			// time_advance function
+			TIME time_advance() const {
+				return state.next_internal;
+			}
+			friend std::ostringstream &operator << (std::ostringstream &os, 
+												const typename Sender <TIME>::state_type &i){
+				os << "packet_number: " << i.packet_number << " &total_packet_number: " <<
+				i.total_packet_number;
+				return os;
+			}
+		};
 
-        // output function
-        typename make_message_bags <output_ports>::type output() const
-        {
-            typename make_message_bags <output_ports>::type bags;
-            message_t out;
-            if (state.sending)
-            {
-                out.value = state.packet_number * 10 + state.alt_bit;
-                get_messages <typename definitions::dataOut> (bags).push_back(out);
-                out.value = state.packet_number;
-                get_messages <typename definitions::packetSentOut> (bags).push_back(out);
-            }
-            else
-            {
-                if (state.ack)
-                {
-                    out.value = state.alt_bit;
-                    get_messages <typename definitions::ackReceivedOut> (bags).push_back(out);
-                }
-            }
-            return bags;
-
-        }
-
-        // time_advance function
-        TIME time_advance() const
-        {
-            return state.next_internal;
-        }
-
-        friend std::ostringstream &operator << (std::ostringstream &os, 
-												const typename Sender <TIME>::state_type &i)
-        {
-            os << "packet_number: " << i.packet_number << " &total_packet_number: " << i.total_packet_number;
-            return os;
-        }
-    };
-
-#endif // BOOST_SIMULATION_PDEVS_SENDER_HPP
+#endif // _BOOST_SIMULATION_PDEVS_SENDER_HPP_
