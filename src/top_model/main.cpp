@@ -148,15 +148,15 @@ cadmium::dynamic::modeling::Ports iports_ABPSimulator = {typeid(inp_control)};
 cadmium::dynamic::modeling::Ports oports_ABPSimulator = {typeid(outp_ack),typeid(outp_pack)};
 cadmium::dynamic::modeling::Models submodels_ABPSimulator = {sender1, receiver1,NETWORK};
 cadmium::dynamic::modeling::EICs eics_ABPSimulator = {
-  cadmium::dynamic::translate::make_EIC<inp_control, sender_defs::controlIn>("sender1")
+  cadmium::dynamic::translate::make_EIC<inp_control, sender_defs::control_in>("sender1")
 };
 cadmium::dynamic::modeling::EOCs eocs_ABPSimulator = {
-  cadmium::dynamic::translate::make_EOC<sender_defs::packetSentOut,outp_pack>("sender1"),
-cadmium::dynamic::translate::make_EOC<sender_defs::ackReceivedOut,outp_ack>("sender1")
+  cadmium::dynamic::translate::make_EOC<sender_defs::packet_sent_out,outp_pack>("sender1"),
+cadmium::dynamic::translate::make_EOC<sender_defs::ack_received_out,outp_ack>("sender1")
 };
 cadmium::dynamic::modeling::ICs ics_ABPSimulator = {
-  cadmium::dynamic::translate::make_IC<sender_defs::dataOut, inp_1>("sender1","Network"),
-  cadmium::dynamic::translate::make_IC<outp_2, sender_defs::ackIn>("Network","sender1"),
+  cadmium::dynamic::translate::make_IC<sender_defs::data_out, inp_1>("sender1","Network"),
+  cadmium::dynamic::translate::make_IC<outp_2, sender_defs::ack_in>("Network","sender1"),
   cadmium::dynamic::translate::make_IC<receiver_defs::out, inp_2>("receiver1","Network"),
   cadmium::dynamic::translate::make_IC<outp_1, receiver_defs::in>("Network","receiver1")
 };

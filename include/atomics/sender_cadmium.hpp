@@ -28,11 +28,11 @@ using namespace std;
 
 //Port definition
 struct sender_defs{
-	struct packetSentOut: public out_port <message_t> {};
-    struct ackReceivedOut: public out_port <message_t> {};
-    struct dataOut: public out_port <message_t> {};
-    struct controlIn: public in_port <message_t> {};
-    struct ackIn: public in_port <message_t> {};
+	struct packet_sent_out: public out_port <message_t> {};
+    struct ack_received_out: public out_port <message_t> {};
+    struct data_out: public out_port <message_t> {};
+    struct control_in: public in_port <message_t> {};
+    struct ack_in: public in_port <message_t> {};
 };
 
 template <typename TIME>
@@ -42,11 +42,11 @@ template <typename TIME>
         public:
             //Parameters to be overwriten when instantiating the atomic model
             TIME PREPARATION_TIME;
-			TIME timeout;
+			TIME TIME_OUT;
 			// default constructor
 			Sender() noexcept{\
 				PREPARATION_TIME = TIME("00:00:10");
-				timeout = TIME("00:00:20");
+				TIME_OUT = TIME("00:00:20");
 				state.alt_bit = 0;
 				state.next_internal = std::numeric_limits <TIME>::infinity();
 				state.model_active = false;
@@ -64,11 +64,11 @@ template <typename TIME>
 			};
 			state_type state;
 			// ports definition
-			using input_ports = std::tuple <typename definitions::controlIn, 
-											typename definitions::ackIn> ;
-			using output_ports = std::tuple <typename definitions::packetSentOut, 
-											typename definitions::ackReceivedOut, 
-											typename definitions::dataOut> ;
+			using input_ports = std::tuple <typename definitions::control_in, 
+											typename definitions::ack_in> ;
+			using output_ports = std::tuple <typename definitions::packet_sent_out, 
+											typename definitions::ack_received_out, 
+											typename definitions::data_out> ;
 
 			// internal transition
 			void internal_transition(){			
@@ -90,7 +90,7 @@ template <typename TIME>
 				    if (state.sending){
 					    state.sending = false;
 						state.model_active = true;
-						state.next_internal = timeout;
+						state.next_internal = TIME_OUT;
 					}
 					else{
 						state.sending = true;
@@ -104,11 +104,11 @@ template <typename TIME>
 			void external_transition(TIME e,
 								     typename make_message_bags <input_ports>::type mbs){
         
-				if ((get_messages <typename definitions::controlIn> (mbs).size() +
-					get_messages <typename definitions::ackIn> (mbs).size()) > 1){
+				if ((get_messages <typename definitions::control_in> (mbs).size() +
+					get_messages <typename definitions::ack_in> (mbs).size()) > 1){
 					assert(false && "one message per time uniti");
 				}
-				for (const auto &x: get_messages <typename definitions::controlIn> (mbs)){
+				for (const auto &x: get_messages <typename definitions::control_in> (mbs)){
 					if (state.model_active == false){
 						state.total_packet_number = static_cast <int> (x.value);
 						if (state.total_packet_number > 0){
@@ -126,7 +126,7 @@ template <typename TIME>
 						}
 				    }
 				}
-				for (const auto &x: get_messages <typename definitions::ackIn> (mbs)){       
+				for (const auto &x: get_messages <typename definitions::ack_in> (mbs)){       
 					if (state.model_active == true){
 						if (state.alt_bit == static_cast <int> (x.value)){
 							state.ack = true;
@@ -156,14 +156,14 @@ template <typename TIME>
 				if (state.sending)
 				{
 					out.value = state.packet_number * 10 + state.alt_bit;
-					get_messages <typename definitions::dataOut> (bags).push_back(out);
+					get_messages <typename definitions::data_out> (bags).push_back(out);
 					out.value = state.packet_number;
-					get_messages <typename definitions::packetSentOut> (bags).push_back(out);
+					get_messages <typename definitions::packet_sent_out> (bags).push_back(out);
 				}
 				else{
 					if (state.ack){
 						out.value = state.alt_bit;
-						get_messages <typename definitions::ackReceivedOut> (bags).push_back(out);
+						get_messages <typename definitions::ack_received_out> (bags).push_back(out);
 				    }
 				}
 				return bags;
