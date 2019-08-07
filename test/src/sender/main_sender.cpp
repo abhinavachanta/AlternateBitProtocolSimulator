@@ -85,7 +85,7 @@ int main() {
     std::shared_ptr <cadmium::dynamic::modeling::model> generator_con = 
     cadmium::dynamic::translate::make_dynamic_atomic_model 
     < ApplicationGen, TIME, const char *> ("generator_con", 
-																																				std::move(i_input_data_control));
+	std::move(i_input_data_control));
 
     string input_data_ack = "test/data/sender_input_test_ack_In.txt"; 
     const char *i_input_data_ack = input_data_ack.c_str();
@@ -93,7 +93,7 @@ int main() {
     std::shared_ptr <cadmium::dynamic::modeling::model> generator_ack = 
     cadmium::dynamic::translate::make_dynamic_atomic_model 
     < ApplicationGen, TIME, const char *> ("generator_ack", std::move 
-																																								(i_input_data_ack));
+	(i_input_data_ack));
 
     /********************************************/
     /****** SENDER *******************/

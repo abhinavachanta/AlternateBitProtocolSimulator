@@ -81,8 +81,8 @@ int main() {
 
     std::shared_ptr <cadmium::dynamic::modeling::model> generator = 
     cadmium::dynamic::translate::make_dynamic_atomic_model 
-    < ApplicationGen, TIME, const char *> ("generator", std::move
-																																					(i_input_data_control));
+    < ApplicationGen, TIME, const char *> 
+	("generator", std::move(i_input_data_control));
 
     /********************************************/
     /****** RECIEVER *******************/
