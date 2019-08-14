@@ -53,7 +53,7 @@ using namespace std;
 				bool transmiting;
 				int packet;
 				int index;
-            }; 
+            };
             state_type state;
 
             // ports definition
