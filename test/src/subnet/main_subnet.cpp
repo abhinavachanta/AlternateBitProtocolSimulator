@@ -49,28 +49,28 @@ int main() {
     };
 
     using info = cadmium::logger::logger <cadmium::logger::logger_info,
-		 cadmium::dynamic::logger::formatter <TIME>, 
-		 oss_sink_provider> ;
+		         cadmium::dynamic::logger::formatter <TIME>, 
+		         oss_sink_provider> ;
     using debug = cadmium::logger::logger <cadmium::logger::logger_debug,
-		  cadmium::dynamic::logger::formatter <TIME>, 
-		  oss_sink_provider> ;
+		          cadmium::dynamic::logger::formatter <TIME>, 
+		          oss_sink_provider> ;
     using state = cadmium::logger::logger <cadmium::logger::logger_state,
-		  cadmium::dynamic::logger::formatter <TIME>, 
-		  oss_sink_provider> ;
+		          cadmium::dynamic::logger::formatter <TIME>, 
+		          oss_sink_provider> ;
     using log_messages = cadmium::logger::logger <cadmium::logger::logger_messages,
-			 cadmium::dynamic::logger::formatter <TIME>, 
-			 oss_sink_provider> ;
+			             cadmium::dynamic::logger::formatter <TIME>, 
+			             oss_sink_provider> ;
     using routing = cadmium::logger::logger<cadmium::logger::logger_message_routing,
-		    cadmium::dynamic::logger::formatter <TIME>, 
-		    oss_sink_provider> ;
+		            cadmium::dynamic::logger::formatter <TIME>, 
+		            oss_sink_provider> ;
     using global_time = cadmium::logger::logger<cadmium::logger::logger_global_time,
-			cadmium::dynamic::logger::formatter <TIME>, 
-			oss_sink_provider> ;
+			            cadmium::dynamic::logger::formatter <TIME>, 
+			            oss_sink_provider> ;
     using local_time = cadmium::logger::logger<cadmium::logger::logger_local_time,
-		       cadmium::dynamic::logger::formatter <TIME>, 
-		       oss_sink_provider> ;
+		               cadmium::dynamic::logger::formatter <TIME>, 
+		               oss_sink_provider> ;
     using log_all = cadmium::logger::multilogger <info, debug, state,
-		    log_messages, routing, global_time, local_time> ;
+		            log_messages, routing, global_time, local_time> ;
     using logger_top = cadmium::logger::multilogger <log_messages, global_time> ;
 
     /*******************************************/
@@ -106,22 +106,22 @@ int main() {
     };
     cadmium::dynamic::modeling::EICs eics_TOP = {};
     cadmium::dynamic::modeling::EOCs eocs_TOP = {
-	cadmium::dynamic::translate::make_EOC <subnet_defs::out, output_port> ("subnet1")
+	   cadmium::dynamic::translate::make_EOC <subnet_defs::out, output_port> ("subnet1")
     };
     cadmium::dynamic::modeling::ICs ics_TOP = {
-	cadmium::dynamic::translate::make_IC <iestream_input_defs <message_t>::out, 
-	subnet_defs:: in> ("generator", "subnet1")
+	   cadmium::dynamic::translate::make_IC <iestream_input_defs <message_t>::out, 
+	   subnet_defs:: in> ("generator", "subnet1")
     };
     std::shared_ptr <cadmium::dynamic::modeling::coupled <TIME>> TOP = 
     std::make_shared <cadmium::dynamic::modeling::coupled <TIME>> (
-								   "TOP",
-								   submodels_TOP,
-								   iports_TOP,
-								   oports_TOP,
-								   eics_TOP,
-								   eocs_TOP,
-								   ics_TOP
-    								   );
+                                								   "TOP",
+                                								   submodels_TOP,
+                                								   iports_TOP,
+                                								   oports_TOP,
+                                								   eics_TOP,
+                                								   eocs_TOP,
+                                								   ics_TOP
+                                    							   );
 
     ///****************////
 
