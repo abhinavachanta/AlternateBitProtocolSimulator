@@ -80,19 +80,16 @@ template <typename TIME>
 						state.sending = true;
 						state.model_active = true;
 						state.next_internal = PREPARATION_TIME;
-					}
-					else{
+					}else{
 						state.model_active = false;
 						state.next_internal = std::numeric_limits <TIME>::infinity();
 					}
-				}
-				else{
+				}else{
 				    if (state.sending){
 					    state.sending = false;
 						state.model_active = true;
 						state.next_internal = TIME_OUT;
-					}
-					else{
+					}else{
 						state.sending = true;
 						state.model_active = true;
 						state.next_internal = PREPARATION_TIME;
@@ -118,8 +115,7 @@ template <typename TIME>
 							state.alt_bit = state.packet_number % 2; //set initial alt_bit
 							state.model_active = true;
 							state.next_internal = PREPARATION_TIME;
-						}
-						else{
+						}else{
 							if (state.next_internal != std::numeric_limits <TIME>::infinity()){                        
 								state.next_internal = state.next_internal - e;
 							}
@@ -132,8 +128,7 @@ template <typename TIME>
 							state.ack = true;
 							state.sending = false;
 							state.next_internal = TIME("00:00:00");
-						}	
-	                    else{                    
+						}else{                    
 	                        if (state.next_internal != std::numeric_limits <TIME>::infinity()){                        
 	                            state.next_internal = state.next_internal - e;
 	                        }
@@ -159,8 +154,7 @@ template <typename TIME>
 					get_messages <typename definitions::data_out> (bags).push_back(out);
 					out.value = state.packet_number;
 					get_messages <typename definitions::packet_sent_out> (bags).push_back(out);
-				}
-				else{
+				}else{
 					if (state.ack){
 						out.value = state.alt_bit;
 						get_messages <typename definitions::ack_received_out> (bags).push_back(out);

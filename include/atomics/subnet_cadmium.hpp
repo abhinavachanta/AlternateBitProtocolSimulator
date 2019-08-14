@@ -106,8 +106,7 @@ using namespace std;
 											          (round(distribution(generator)))};
 					// time is hour min and second
 					next_internal = TIME(time);
-				}
-					else {
+				}else {
 					next_internal = std::numeric_limits<TIME>::infinity();
 					}    
               return next_internal;
@@ -116,7 +115,7 @@ using namespace std;
             friend std::ostringstream& operator<<(std::ostringstream& os,
 												  const typename Subnet<TIME>::state_type& i) {
                 os << "index: " << i.index << " & transmiting: " << i.transmiting; 
-            return os;
+                return os;
             }
         };    
 #endif // _BOOST_SIMULATION_PDEVS_SUBNET_HPP_

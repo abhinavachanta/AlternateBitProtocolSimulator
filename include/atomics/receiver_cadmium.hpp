@@ -100,8 +100,7 @@ using namespace std;
 				TIME next_internal;
 				if (state.sending) {
                 next_internal = PREPARATION_TIME;
-                }
-					else {
+                }else {
                 next_internal = std::numeric_limits<TIME>::infinity();
 					}    
             return next_internal;
