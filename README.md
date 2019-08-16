@@ -9,15 +9,26 @@
 
 # Project Description
 ---
-Alternate Bit Protocol(ABP)is for transmission of data packets from sender to reciver through subnet. In order to achieve reliable transmission between sender and receiver through unreliable network the ABP protocol is used. when sender sends the packet, it waits for particular to recieve acknowledgement from reviever. if it is not arrived in that time it re-sends packet until it gets the expected acknowledgement before sending next packet. In order to distinguish from one packet to another this ABP helps to add an additional bit on each packet. 
+	Alternate Bit Protocol(ABP)is for transmission of data packets from sender to reciver through subnet. In order to achieve reliable
+	transmission between sender and receiver through unreliable network the ABP protocol is used. when sender sends the packet,
+	it waits for particular to recieve acknowledgement from reviever. if it is not arrived in that time it re-sends packet until it gets
+	the expected acknowledgement before sending next packet. In order to distinguish from one packet to another this ABP helps to add
+	an additional bit on each packet. 
 
-There are three components of ABP simulator are 
+	There are three components of ABP simulator are 
 
-1.**Sender** - Its behavior is pretty complex. When an external signal is received the sender changes from initial phase *passive* to *active*. Once activated it start sending the packet with the alternating bit. Every time a packet is sent, it waits for an acknowledgement during an specific waiting time. It the acknowledgment does not arrive within the time window, the sender will re- send the previous packet with the alternating bit. If the expected acknowledgement is received within the time window, the sender will send the next packet. When there are no more packets to send, the sender will go again to the *passive* phase.
+	1.**Sender** - Its behavior is pretty complex. When an external signal is received the sender changes from initial phase *passive*
+	  to *active*. Once activated it start sending the packet with the alternating bit. Every time a packet is sent,it waits for an
+	  acknowledgement during an specific waiting time. It the acknowledgment does not arrive within the time window, the sender will
+	  re- send the previous packet with the alternating bit. If the expected acknowledgement is received within the time window, the 
+	  sender will send the next packet. When there are no more packets to send, the sender will go again to the *passive* phase.
 
-2.**subnet** - The subnets just pass the packets after a time delay. However, in order to simulate the unreliability of the network, only 95% of the packets will be passed in each of the subnet, i.e. 5% of the data will be lost through the subnet
+	2.**subnet** - The subnets just pass the packets after a time delay. However, in order to simulate the unreliability of the network,
+	  only 95% of the packets will be passed in each of the subnet, i.e. 5% of the data will be lost through the subnet
 
-3.**Receiver** - The behavior of receiver is to receive the data and send back an acknowledgement extracted from the received data after a time period.
+	3.**Receiver** - The behavior of receiver is to receive the data and send back an acknowledgement extracted from the received
+	  data after a time period.
+
 
 ---
 
@@ -146,9 +157,8 @@ build [This folder contains .o files which are generated during program executio
 	6.  To execute the simulator with different inputs
 		1. Create new .txt files with the same structure as input_abp_0.txt or input_abp_1.txt
 		2. Run the simulator using the instructions in step 4
-		3. In order to save the output, rename abp_output.txt. To do so, goto test/data/ folder and type in the terminal:
-			
-			"mv abp_output.txt NEW_NAME"	
+		3. In order to save the output, rename abp_output.txt. To do so, goto test/data/ folder and
+		   type in the terminal: "mv abp_output.txt NEW_NAME"	
 
 			> Example: mv abp_output.txt abp_output_0.txt
 		 		
