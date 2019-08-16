@@ -1,13 +1,13 @@
 # *Alternate Bit Protocol Simulator*
 
-# FILES ORGANIZATION: Carleton University
+## FILES ORGANIZATION: Carleton University
 ---
-### Authors:  
+### *Authors:*  
 ---
 ### Originally Developed by	: Dr. Cristina Ruiz Martin
 ### Modified by				: Rajeev Kuamr Jandhyala and Abhinav Achanta
 
-## Project Description
+# Project Description
 ---
 Alternate Bit Protocol(ABP)is for transmission of data packets from sender to reciver through subnet. In order to achieve reliable transmission between sender and receiver through unreliable network the ABP protocol is used. when sender sends the packet, it waits for particular to recieve acknowledgement from reviever. if it is not arrived in that time it re-sends packet until it gets the expected acknowledgement before sending next packet. In order to distinguish from one packet to another this ABP helps to add an additional bit on each packet. 
 
@@ -21,7 +21,7 @@ There are three components of ABP simulator are
 
 ---
 
-##File Structure
+# File Structure
 ---
 
 bin [This folder containes the .exe files which are generated during program execution]
@@ -93,9 +93,8 @@ build [This folder contains .o files which are generated during program executio
 		3.subnet [This folder contains the unit test of the subnet]
 				-main.cpp
 
-### instructions to Run/compile the Project
+# Instructions to Run/compile the Project
 ---
-
 
 1. Inside the doc folder you can find alternatebitprotocol.pdf which contains the explanation of this simulator
 
@@ -105,7 +104,7 @@ build [This folder contains .o files which are generated during program executio
 
 		> Example: INCLUDECADMIUM=-I lib/cadmium/include
     
-3. Run the unit tests
+3. **Run the unit tests**
 	1. Run subnet test
 
 		- Open the terminal. Press in your keyboard Ctrl+Alt+t
@@ -126,7 +125,7 @@ build [This folder contains .o files which are generated during program executio
 
 	2. To run receiver and sender tests, the steps are analogous to 1
 			
-4. Run the simulator
+4. **Run the simulator**
 	1. Open the terminal. Press in your keyboard Ctrl+Alt+t
 	2. Set the command prompt in the AlternateBitProtocol folder. set the terminal path to this folder.
 
@@ -148,6 +147,8 @@ build [This folder contains .o files which are generated during program executio
 		1. Create new .txt files with the same structure as input_abp_0.txt or input_abp_1.txt
 		2. Run the simulator using the instructions in step 4
 		3. In order to save the output, rename abp_output.txt. To do so, goto test/data/ folder and type in the terminal:
+			
 			"mv abp_output.txt NEW_NAME"	
+
 			> Example: mv abp_output.txt abp_output_0.txt
 		 		
