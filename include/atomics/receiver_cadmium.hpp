@@ -8,6 +8,12 @@
 * the delay of the receiver is a constant 
 */
 
+/**
+* Author            : Dr. Cristina Ruiz Martin
+* Organization      : ARSLab - Carleton University
+* Modified by       : Rajeev kumar Jandhyala
+*/
+
 #ifndef _BOOST_SIMULATION_PDEVS_RECEIVER_HPP_
 #define _BOOST_SIMULATION_PDEVS_RECEIVER_HPP_
 
@@ -29,12 +35,16 @@
 
 #include "../data_structures/message.hpp"
 
-/** namespace is used to organize code into logical groups and to prevent name collisions */
+/** 
+* namespace is used to organize code into logical groups and to prevent name collisions.
+*/
 using namespace cadmium;
 using namespace std;
 
-/* structure consists of class public output and input Messages*/
-/** Port definition */
+/**
+* structure consists of class public output and input Messages
+* Port definition 
+*/
     struct receiver_defs {
 		struct out : public out_port<message_t> {
 		};
@@ -47,18 +57,26 @@ using namespace std;
     
     class Receiver {
 
-        /** putting reciever definitions in context */
+        /** 
+        * putting reciever definitions in context. 
+        */
         using defs = receiver_defs;  
         public:
         
-        /*Time constant Parameter */
+        /** 
+        * Time constant Parameter
+        */
             TIME	PREPARATION_TIME;
         
-            /** receiver constructor */
+            /** 
+            * receiver constructor.
+            * initializing acknowledgement to zero and sending to false values.
+            */
             Receiver() noexcept{
         
-                /** initializing acknowledgement to zero and sending to false values */
-              PREPARATION_TIME  = TIME("00:00:10");
+                
+                
+            	PREPARATION_TIME  = TIME("00:00:10");
 				state.acknowledgement_num    = 0;
 				state.sending    = false;
             }
@@ -70,18 +88,24 @@ using namespace std;
             }; 
 		    state_type state;
 
-            /** port definitions */
+            /** 
+            * port definitions 
+            */
             using input_ports = std::tuple<typename defs::in>;
             using output_ports = std::tuple<typename defs::out>;
 
-            /** internal_transition function returns void  and intializing sending variable */
+            /** 
+            * internal_transition function returns void  and intializing sending variable 
+            */
             void internal_transition() {
 				state.sending = false; 
             }
 
-            /** funciton external_transition gets the number of messages is greater than 1.
-            *assert to false and concatenate with one message per time unit 
-            *initialize the state acknowledgement value to x.value and sending to true */
+            /** 
+            * funciton external_transition gets the number of messages is greater than 1.
+            * assert to false and concatenate with one message per time unit 
+            * initialize the state acknowledgement value to x.value and sending to true
+            */
             void external_transition(
 				TIME e, typename make_message_bags<input_ports>::type mbs) { 
 				if(get_messages<typename defs::in>(mbs).size()>1) {
@@ -94,16 +118,20 @@ using namespace std;
                            
             }
 
-            /** confluence_transition function contains two functions internal_transistion 
-            * and external_transition */ 
+            /** 
+            * confluence_transition function contains two functions internal_transistion 
+            * and external_transition 
+            */ 
             void confluence_transition(TIME e,
 									   typename make_message_bags<input_ports>::type mbs) {
                 internal_transition();
                 external_transition(TIME(), std::move(mbs));
 			}
 
-            /** output function sends remainder value of acknowledgement number 
-            * and the value is send to output port */
+            /** 
+            * output function sends remainder value of acknowledgement number 
+            * and the value is send to output port
+            */
             typename make_message_bags<output_ports>::type output() const {
 				typename make_message_bags<output_ports>::type bags;
 				message_t out;              
@@ -114,7 +142,8 @@ using namespace std;
 
             /** time_advance function declares the variable next_internal.
             * if state.sending is true then variable set to preparation time 
-            * or else to infinity  */
+            * or else to infinity
+            */
             TIME time_advance() const {  
 				TIME next_internal;
 				if (state.sending) {
@@ -125,7 +154,9 @@ using namespace std;
             return next_internal;
             }
             
-            /** friend is a function output is acknowledge number to ostring stream */
+            /** 
+            * friend is a function output is acknowledge number to ostring stream 
+            */
             friend std::ostringstream& operator<<(std::ostringstream& os,
 												  const typename Receiver<TIME>::state_type& i) {		
                 os << "acknowledgement_num: " << i.acknowledgement_num; 

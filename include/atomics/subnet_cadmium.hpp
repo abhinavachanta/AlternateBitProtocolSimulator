@@ -1,4 +1,5 @@
-/** Header file for subnet
+/**\ Header file for subnet
+*
 *subnets passes the packets after some a time delay.
 * in order to simulate the unreliability of the network,
 * only 95% of the packets will be passed in each of the subnet,
@@ -6,6 +7,12 @@
 * subnet has 2 phases active and passive. intially it is in passive phase
 * whenever packet is received subnet changes to active phase. 
 * when there is no data transmission or acknowledgement it goes to passive phase
+*/
+
+/**
+* Author            : Dr. Cristina Ruiz Martin
+* Organization      : ARSLab - Carleton University
+* Modified by       : Rajeev kumar Jandhyala
 */
 
 #ifndef _BOOST_SIMULATION_PDEVS_SUBNET_HPP_
@@ -32,7 +39,9 @@ using namespace cadmium;
 using namespace std;
 
 	/** Port definition 
-	* structure consists of class public output and input Messages*/
+    *
+	* structure consists of class public output and input Messages,
+    */
 
 	struct subnet_defs{
 		struct out : public out_port<message_t> {
@@ -46,17 +55,24 @@ using namespace std;
 
     class Subnet{
 
-    	/** putting reciever definitions in context */
+    	/** 
+        * putting reciever definitions in context.
+        */
         using defs = subnet_defs; 
         public:
          
-        	/** subnet constructor initializing state trasmiting to false and index to zero*/
+        	/** 
+            *subnet constructor initializing state trasmiting to false and index to zero.
+            */
             Subnet() noexcept{
 				state.transmiting = false;
 				state.index = 0;
             }
             
-            /** structure state_type definition and declaring packet,index and transmiting values*/
+            /**
+            * structure state_type definition and declaring packet,index and transmiting values
+            */
+            
             struct state_type{
 				bool transmiting;
 				int packet;
@@ -64,18 +80,23 @@ using namespace std;
             };
             state_type state;
 
-            /** ports definition */
+            /** 
+            * ports definition 
+            */
             using input_ports=std::tuple<typename defs::in>;
             using output_ports=std::tuple<typename defs::out>;
 
-            /** internal_transition function returns void  and intializing sending variable */
+            /** 
+            * internal_transition function returns void  and intializing sending variable. 
+            */
             void internal_transition() {
 				state.transmiting = false;  
             }
 
-			/** funciton external_transition gets the number of messages is greater than 1.
-            *assert to false and concatenate with one message per time unit 
-            *initialize the state acknowledgement value to x.value and sending to true */ 
+			/** 
+            * funciton external_transition gets the number of messages is greater than 1.
+            * assert to false and concatenate with one message per time unit 
+            * initialize the state acknowledgement value to x.value and sending to true */ 
             void external_transition(TIME e,
 							         typename make_message_bags<input_ports>::type mbs) { 
                 state.index ++;
@@ -88,15 +109,18 @@ using namespace std;
                 }               
             }
 
-            /** confluence_transition function contains two functions internal_transistion 
-            * and external_transition */ 
+            /** 
+            * confluence_transition function contains two functions internal_transistion 
+            * and external_transition 
+            */ 
             void confluence_transition(TIME e,
 				                      typename make_message_bags<input_ports>::type mbs) {
                 internal_transition();
                 external_transition(TIME(), std::move(mbs));
             }
 
- 			/** output function sends message with probability 95%.
+ 			/** 
+            * output function sends message with probability 95%.
  			* with packet loss 5% to ouptut port
  			* @return bags */
 
@@ -110,9 +134,11 @@ using namespace std;
 				return bags;
             }
 
-            /** time_advance function declares the variable next_internal.
+            /** 
+            * time_advance function declares the variable next_internal.
             * if state.transmiting  is true then variable set to next_internal
-            * time value obtained from distribution function  else valuw is infinity */
+            * time value obtained from distribution function  else valuw is infinity 
+            */
 
             TIME time_advance() const {
 				std::default_random_engine generator;
@@ -121,7 +147,9 @@ using namespace std;
 				if (state.transmiting) {
 					std::initializer_list<int> time = {0, 0,static_cast < int > 
 											          (round(distribution(generator)))};
-					// time is hour min and second
+					/** 
+                    * time is hour min and second.
+                    */
 					next_internal = TIME(time);
 				}else {
 					next_internal = std::numeric_limits<TIME>::infinity();
@@ -129,7 +157,9 @@ using namespace std;
               return next_internal;
             }
 
-            /** friend is a function output is index and transmiting to ostring stream */
+            /** 
+            * friend is a function output is index and transmiting to ostring stream. 
+            */
 
             friend std::ostringstream& operator<<(std::ostringstream& os,
 												  const typename Subnet<TIME>::state_type& i) {
