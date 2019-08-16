@@ -1,3 +1,12 @@
+/** \This is the implemention of Receiver component
+ *
+ * This file imports the in-built libraries of cadmium 
+ * and vendor library, accept the file as an input, 
+ * perform simulator operations w.r.t. receiver,
+ * store the output in a file and log the operations.
+ *
+ */
+
 #include <iostream>
 #include <chrono>
 #include <algorithm>
@@ -20,33 +29,62 @@ using namespace std;
 using high_resolution_clock = chrono::high_resolution_clock;
 using TIME = NDTime;
 
-/***** SETING INPUT PORTS FOR COUPLEDs *****/
+/**
+ * Setting input ports
+ */
 struct input_port: public cadmium::in_port <message_t> {};
 
-/***** SETING OUTPUT PORTS FOR COUPLEDs *****/
+/**
+ * Setting output ports
+ */
 struct output_port: public cadmium::out_port <message_t> {};
 
-/********************************************/
-/****** APPLICATION GENERATOR *******************/
-/********************************************/
+/**
+ * This is application generator class.
+ * File path of the input file is passed as an
+ * argument to this class and a generic template
+ * @param message_t 
+ * @param T
+ */
 template <typename T>
     class ApplicationGen: public iestream_input <message_t, T> {
         public: ApplicationGen() = default;
+
+        /**
+         * This is a parameterized contructor for application generator class 
+         * It takes the file path of the input file as a parameter
+         * @param file_path
+         */
         ApplicationGen(const char *file_path): 
 	iestream_input <message_t, T> (file_path) {}
     };
 
 int main() {
-    auto start = high_resolution_clock::now(); //to measure simulation execution time
 
-    /*************** Loggers *******************/
+    /** 
+     * variable to measure simulation execution time
+     */
+    auto start = high_resolution_clock::now(); 
+
+    /** 
+     * The execution logs and messages are saved to the 
+     * 'receiver_test_output.txt' file
+     */
     static std::ofstream out_data("test/data/receiver_test_output.txt");
+
+    /**
+     * Structure which invokes the ostream sink function
+     * and then returns the stored data
+     */
     struct oss_sink_provider {
         static std::ostream &sink() {
             return out_data;
         }
     };
 
+    /**
+     * Storing the inbuilt cadmium logger definitions to variables
+     */
     using info = cadmium::logger::logger <cadmium::logger::logger_info,
 		                                  cadmium::dynamic::logger::formatter <TIME>, 
 				                          oss_sink_provider> ;
@@ -77,30 +115,34 @@ int main() {
                                                   local_time> ;
     using logger_top = cadmium::logger::multilogger <log_messages,global_time> ;
 
-    /*******************************************/
-
-    /********************************************/
-    /****** APPLICATION GENERATOR *******************/
-    /********************************************/
+    /**
+     * Specify the input control file and set it as 
+     * input data control for execution of the receiver component
+     */
     string input_data_control = "test/data/receiver_input_test.txt"; 
     const char *i_input_data_control = input_data_control.c_str();
 
+    /**
+     * This initializes the generator component which
+     * generates the output taking in account the Time 
+     * and input data control
+     */
     std::shared_ptr <cadmium::dynamic::modeling::model> generator = 
     cadmium::dynamic::translate::make_dynamic_atomic_model
     < ApplicationGen, TIME, const char *> 
     ("generator", std::move(i_input_data_control));
 
-    /********************************************/
-    /****** RECIEVER *******************/
-    /********************************************/
-
+    /**
+     * Initialize the receiver component
+     */
     std::shared_ptr <cadmium::dynamic::modeling::model> receiver1 = 
     cadmium::dynamic::translate::make_dynamic_atomic_model 
     <Receiver, TIME> ("receiver1");
 
-    /************************/
-    /*******TOP MODEL********/
-    /************************/
+    /**
+     * Declare variables to hold top model 
+     * components which are generated using receiver
+     */
     cadmium::dynamic::modeling::Ports iports_TOP = {};
     cadmium::dynamic::modeling::Ports oports_TOP = {
 	   typeid(output_port)
@@ -129,21 +171,36 @@ int main() {
                                 								   ics_TOP
                                 								   );
 
-    ///****************////
-
+    /**
+     * Declare model to measure and store the time elapsed (in sec)  
+     * since the start of the generator. Then print this in output file
+     */
     auto elapsed1 = std::chrono::duration_cast <std::chrono::duration<double, 
                     std::ratio < 1>>> (high_resolution_clock::now() - start).count();
     cout << "Model Created. Elapsed time: " << elapsed1 << "sec" << endl;
 
+    /**
+     * Declare runner component to measure and store the time elapsed (in sec) 
+     * since the start of the generator. Then print this in output file
+     */
     cadmium::dynamic::engine::runner <NDTime, logger_top> r(TOP, { 0 });
     elapsed1 = std::chrono::duration_cast <std::chrono::duration <double, 
                std::ratio < 1>>> (high_resolution_clock::now() - start).count();
     cout << "Runner Created. Elapsed time: " << elapsed1 << "sec" << endl;
 
+    /**
+     * Print message when the simulation starts.
+     */
     cout << "Simulation starts" << endl;
 
+    /**
+     * Run the simulation until 04:00:00:000 time frame
+     */
     r.run_until(NDTime("04:00:00:000"));
 
+    /**
+     * Measure the simulation time and print it
+     */
     auto elapsed = std::chrono::duration_cast <std::chrono::duration <double, 
                    std::ratio < 1>>> (high_resolution_clock::now() - start).count();
     cout << "Simulation took:" << elapsed << "sec" << endl;
