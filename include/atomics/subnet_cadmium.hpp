@@ -1,4 +1,4 @@
-/**\ Header file for subnet
+/** Header file for subnet
 *
 *subnets passes the packets after some a time delay.
 * in order to simulate the unreliability of the network,
@@ -39,7 +39,6 @@ using namespace cadmium;
 using namespace std;
 
 	/** Port definition 
-    *
 	* structure consists of class public output and input Messages,
     */
 
@@ -55,20 +54,20 @@ using namespace std;
 
     class Subnet{
 
-    	/** 
+    	using defs = subnet_defs; 
+        /** 
         * putting reciever definitions in context.
         */
-        using defs = subnet_defs; 
         public:
          
-        	/** 
-            *subnet constructor initializing state trasmiting to false and index to zero.
-            */
-            Subnet() noexcept{
-				state.transmiting = false;
+        	Subnet() noexcept{
+                /*subnet constructor initializing state trasmiting to false and index to zero.
+                */
+				state.transmiting = false; 
+
 				state.index = 0;
             }
-            
+                
             /**
             * structure state_type definition and declaring packet,index and transmiting values
             */
@@ -92,11 +91,11 @@ using namespace std;
             void internal_transition() {
 				state.transmiting = false;  
             }
-
 			/** 
             * funciton external_transition gets the number of messages is greater than 1.
             * assert to false and concatenate with one message per time unit 
-            * initialize the state acknowledgement value to x.value and sending to true */ 
+            * initialize the state acknowledgement value to x.value and sending to true 
+            */ 
             void external_transition(TIME e,
 							         typename make_message_bags<input_ports>::type mbs) { 
                 state.index ++;
@@ -112,6 +111,8 @@ using namespace std;
             /** 
             * confluence_transition function contains two functions internal_transistion 
             * and external_transition 
+            * @param e  type time 
+            * @param mbs type message bag
             */ 
             void confluence_transition(TIME e,
 				                      typename make_message_bags<input_ports>::type mbs) {
@@ -122,7 +123,8 @@ using namespace std;
  			/** 
             * output function sends message with probability 95%.
  			* with packet loss 5% to ouptut port
- 			* @return bags */
+ 			* @return message bags
+            */
 
             typename make_message_bags<output_ports>::type output() const {
 						typename make_message_bags<output_ports>::type bags;
@@ -137,7 +139,8 @@ using namespace std;
             /** 
             * time_advance function declares the variable next_internal.
             * if state.transmiting  is true then variable set to next_internal
-            * time value obtained from distribution function  else valuw is infinity 
+            * time value obtained from distribution function  else value is infinity 
+            * @return next_interval
             */
 
             TIME time_advance() const {
@@ -154,11 +157,14 @@ using namespace std;
 				}else {
 					next_internal = std::numeric_limits<TIME>::infinity();
 					}    
-              return next_internal;
+                return next_internal;
             }
 
             /** 
-            * friend is a function output is index and transmiting to ostring stream. 
+            * friend is a type grant member-level access to functions to return output is index and transmitting to ostring stream.
+            * @param os output stream
+            * @param i 
+            * @return os  
             */
 
             friend std::ostringstream& operator<<(std::ostringstream& os,

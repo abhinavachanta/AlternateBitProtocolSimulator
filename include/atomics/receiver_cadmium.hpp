@@ -1,4 +1,4 @@
-/**\Header file for receiver 
+/** Header file for receiver 
 
 * Behaviour of receive is ro receive the data and send back an acknowledgement extracted 
 * from the received data after a time period.
@@ -57,10 +57,11 @@ using namespace std;
     
     class Receiver {
 
+        
+        using defs = receiver_defs;
         /** 
         * putting reciever definitions in context. 
-        */
-        using defs = receiver_defs;  
+        */  
         public:
         
         /** 
@@ -81,7 +82,9 @@ using namespace std;
 				state.sending    = false;
             }
             
-            /** structure state definition and declaring acknowledgment number*/
+            /** 
+            * structure state definition and declaring acknowledgment number
+            */
             struct state_type {
 				int acknowledgement_num;
 				bool sending;
@@ -105,6 +108,8 @@ using namespace std;
             * funciton external_transition gets the number of messages is greater than 1.
             * assert to false and concatenate with one message per time unit 
             * initialize the state acknowledgement value to x.value and sending to true
+            * @param e  type time 
+    		* @param mbs type message bags
             */
             void external_transition(
 				TIME e, typename make_message_bags<input_ports>::type mbs) { 
@@ -120,7 +125,9 @@ using namespace std;
 
             /** 
             * confluence_transition function contains two functions internal_transistion 
-            * and external_transition 
+            * and external_transition
+            * @param e  type time 
+    		* @param mbs type message bags 
             */ 
             void confluence_transition(TIME e,
 									   typename make_message_bags<input_ports>::type mbs) {
@@ -131,18 +138,20 @@ using namespace std;
             /** 
             * output function sends remainder value of acknowledgement number 
             * and the value is send to output port
+            * @return message bags
             */
             typename make_message_bags<output_ports>::type output() const {
 				typename make_message_bags<output_ports>::type bags;
 				message_t out;              
 				out.value = state.acknowledgement_num % 10;
 				get_messages<typename defs::out>(bags).push_back(out);
-            return bags;
+            	return bags;
 			}
 
             /** time_advance function declares the variable next_internal.
             * if state.sending is true then variable set to preparation time 
             * or else to infinity
+            * @return next_interval
             */
             TIME time_advance() const {  
 				TIME next_internal;
@@ -151,11 +160,14 @@ using namespace std;
                 }else {
                 next_internal = std::numeric_limits<TIME>::infinity();
 					}    
-            return next_internal;
+            	return next_internal;
             }
             
             /** 
-            * friend is a function output is acknowledge number to ostring stream 
+            * friend is a function returns output acknowledge number to ostring stream 
+            * @param os output stream
+            * @param i 
+            * @return os 
             */
             friend std::ostringstream& operator<<(std::ostringstream& os,
 												  const typename Receiver<TIME>::state_type& i) {		
