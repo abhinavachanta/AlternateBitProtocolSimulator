@@ -176,4 +176,4 @@ using namespace std;
     };     
   
 	
-#endif // _BOOST_SIMULATION_PDEVS_RECEIVER_HPP_
+#endif /** _BOOST_SIMULATION_PDEVS_RECEIVER_HPP_ *\
