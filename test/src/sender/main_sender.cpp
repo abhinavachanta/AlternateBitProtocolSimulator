@@ -1,4 +1,4 @@
-/** \This is the implemention of Sender component
+/**  \brief This is the implemention of Sender component
  *
  * This file imports the in-built libraries of cadmium 
  * and vendor library, accept the file as an input, 
