@@ -42,7 +42,7 @@ using namespace cadmium;
 using namespace std;
 
 /**
-* structure consists of class public output and input Messages
+* Structure consists of class public output and input Messages
 * Port definition 
 */
     struct receiver_defs {
@@ -60,7 +60,7 @@ using namespace std;
         
         using defs = receiver_defs;
         /** 
-        * putting reciever definitions in context. 
+        * Putting reciever definitions in context. 
         */  
         public:
         
@@ -136,8 +136,7 @@ using namespace std;
 			}
 
             /** 
-            * output function sends remainder value of acknowledgement number 
-            * and the value is send to output port
+            * output function sends remainder value of acknowledgement number and the value is send to output port
             * @return message bags
             */
             typename make_message_bags<output_ports>::type output() const {
