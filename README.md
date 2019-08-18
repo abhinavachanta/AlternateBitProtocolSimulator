@@ -4,14 +4,14 @@
 ---
 ### *AUTHORS:*  
 ---
-### Originally Developed by	: Dr. Cristina Ruiz Martin (https://github.com/cruizm)
-### Modified by				: Rajeev Kuamr Jandhyala (https://github.com/jrajeev459) and Abhinav Achanta (https://github.com/abhinavachanta)
+### Originally Developed by	: [Dr. Cristina Ruiz Martin](https://github.com/cruizm)
+### Modified by				: [Rajeev Kuamr Jandhyala](https://github.com/jrajeev459) and [Abhinav Achanta](https://github.com/abhinavachanta)
 
 ### Table of Contents 
 ------
 - [Project Description](#Project_Description)
 - [File Structure](#File_Structure)
-- [Installation Guide](Installation_Guide)
+- [Installation Guide](#Installation_Guide)
 - [Steps to Run Simulator](#Steps_to_Run_Simulator)
 
 ---
