@@ -12,7 +12,7 @@
 - [Project Description](#Project_Description)
 - [File Structure](#File_Structure)
 - [Installation Guide](Installation_Guide)
-- [STEPS TO RUN THE SIMULATOR](#STEPS-TO-RUN-THE-SIMULATOR)
+- [Steps to Run Simulator](#Steps_to_Run_Simulator)
 
 ---
 
@@ -37,6 +37,7 @@ only 95% of the packets will be passed in each of the subnet, i.e. 5% of the dat
 
 **Receiver** - The behavior of receiver is to receive the data and send back an acknowledgement extracted from the received
 data after a time period.
+
 ---
 
 # File Structure
@@ -111,9 +112,12 @@ data after a time period.
 	3.subnet [This folder contains the unit test of the subnet]
 		-main.cpp
 
+--- 
 ## Installation Guide 
 ---
+
 Following the corresponding link [Installation Guide document](https://github.com/abhinavachanta/AlternateBitProtocolSimulator/tree/master/doc)instructions to install cadmium simulator dependencies on windows operating system. Follow the corresponding link [https://github.com/abhinavachanta/AlternateBitProtocolSimulator/blob/master/doc/Cadmium_Windows.pdf] guides to install cadmium on windows.
+
 --- 
 ## Instructions to Run/compile the Project
 ---
