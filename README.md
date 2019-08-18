@@ -1,110 +1,121 @@
-# *Alternate Bit Protocol Simulator*
-
-## FILES ORGANIZATION: Carleton University
+# **ALTERNATE BIT PROTOCOL SIMULATOR**
 ---
-### *Authors:*  
+## ORGANIZATION: Carleton University
 ---
-### Originally Developed by	: Dr. Cristina Ruiz Martin
-### Modified by				: Rajeev Kuamr Jandhyala and Abhinav Achanta
-
-# Project Description
+### *AUTHORS:*  
 ---
-	Alternate Bit Protocol(ABP)is for transmission of data packets from sender to reciver through subnet. In order to achieve reliable
-	transmission between sender and receiver through unreliable network the ABP protocol is used. when sender sends the packet,
-	it waits for particular to recieve acknowledgement from reviever. if it is not arrived in that time it re-sends packet until it gets
-	the expected acknowledgement before sending next packet. In order to distinguish from one packet to another this ABP helps to add
-	an additional bit on each packet. 
+### Originally Developed by	: Dr. Cristina Ruiz Martin (https://github.com/cruizm)
+### Modified by				: Rajeev Kuamr Jandhyala (https://github.com/jrajeev459) and Abhinav Achanta (https://github.com/abhinavachanta)
 
-	There are three components of ABP simulator are 
+### Table of Contents 
+------
+- [Project Description](#Project_Description)
+- [File Structure](#File_Structure)
+- [Installation Guide](Installation_Guide)
+- [STEPS TO RUN THE SIMULATOR](#STEPS-TO-RUN-THE-SIMULATOR)
 
-	1.**Sender** - Its behavior is pretty complex. When an external signal is received the sender changes from initial phase *passive*
-	  to *active*. Once activated it start sending the packet with the alternating bit. Every time a packet is sent,it waits for an
-	  acknowledgement during an specific waiting time. It the acknowledgment does not arrive within the time window, the sender will
-	  re- send the previous packet with the alternating bit. If the expected acknowledgement is received within the time window, the 
-	  sender will send the next packet. When there are no more packets to send, the sender will go again to the *passive* phase.
+---
 
-	2.**subnet** - The subnets just pass the packets after a time delay. However, in order to simulate the unreliability of the network,
-	  only 95% of the packets will be passed in each of the subnet, i.e. 5% of the data will be lost through the subnet
+## Project Description
+---
+Alternate Bit Protocol(ABP) is for transmission of data packets from sender to reciver through subnet. In order to achieve reliable
+transmission between sender and receiver through unreliable network the ABP protocol is used. when sender sends the packet,
+it waits for particular to recieve acknowledgement from reviever. if it is not arrived in that time it re-sends packet until it gets
+the expected acknowledgement before sending next packet. In order to distinguish from one packet to another this ABP helps to add
+an additional bit on each packet.
 
-	3.**Receiver** - The behavior of receiver is to receive the data and send back an acknowledgement extracted from the received
-	  data after a time period.
+There are three components of ABP simulator are 
 
+**Sender** - Its behavior is pretty complex. When an external signal is received the sender changes from initial phase *passive*
+to *active*. Once activated it start sending the packet with the alternating bit. Every time a packet is sent,it waits for an
+acknowledgement during an specific waiting time. It the acknowledgment does not arrive within the time window, the sender will
+re- send the previous packet with the alternating bit. If the expected acknowledgement is received within the time window, the 
+sender will send the next packet. When there are no more packets to send, the sender will go again to the *passive* phase.
 
+**subnet** - The subnets just pass the packets after a time delay. However, in order to simulate the unreliability of the network,
+only 95% of the packets will be passed in each of the subnet, i.e. 5% of the data will be lost through the subnet
+
+**Receiver** - The behavior of receiver is to receive the data and send back an acknowledgement extracted from the received
+data after a time period.
 ---
 
 # File Structure
 ---
 
-bin [This folder containes the .exe files which are generated during program execution]
-	1. src [This folder contains the simulator .exe file]
-		- ABP.exe
-	2. test [This folder contains the test .exe files]
-		SUBNET_TEST.exe
-		SENDER_TEST.exe
-		RECEIVER_TEST.exe
+##### bin [This folder containes the .exe files which are generated during program execution]
+1. src [This folder contains the simulator .exe file]
+	- ABP.exe
+2. test [This folder contains the test .exe files]
+	- SUBNET_TEST.exe
+	- SENDER_TEST.exe
+	- RECEIVER_TEST.exe
 		
-build [This folder contains .o files which are generated during program execution]
-	src [This folder contains simulator .o files]
-		main.o
-		message.o
-	test [This folder contains the test .o files]
-		subnet
-			main.o
-		sender
-			main.o
-		receiver
-			main.o
+##### build [This folder contains .o files which are generated during program execution]
+1. src [This folder contains simulator .o files]
+	- main.o
+	- message.o
+2. test [This folder contains the test .o files]
+	1. subnet
+		- main.o
+	2. sender
+		- main.o
+	3. receiver
+		-main.o
 			
 ##### data [This folder contains input data for testing and output files]
-		-input_abp_0.txt
-		-input_abp_1.txt
-		-abp_output.txt
+- input_abp_0.txt
+- input_abp_1.txt
+- abp_output.txt
 	
 ##### doc [This folder contains documents related to project]
-		-alternatebitprot.pdf
-		-Cadmium_Documentation_Ubuntu.pdf
-		-Cadmium_Windows.pdf
+-alternatebitprot.pdf
+-Cadmium_Documentation_Ubuntu.pdf
+-Cadmium_Windows.pdf
 		
 ##### include [THis folder contains the header files and data structures]
-	  	1.atomics [This folder contains the header files]
-			-receiverCadmium.hpp
-			-senderCadmium.hpp
-			-subnetCadmium.hpp
-		2.data_structures [This folder contains the data structures used in the project]
-			-message.hpp
-			-message.cpp
+1.atomics [This folder contains the header files]
+	-receiverCadmium.hpp
+	-senderCadmium.hpp
+	-subnetCadmium.hpp
+2.data_structures [This folder contains the data structures used in the project]
+	-message.hpp
+	-message.cpp
 
 ##### lib [This folder contains the libraries/dependencies]
-		1.cadmium [This folder contains cadmium files]
-		2.DESTimes [This folder contains DESTimes files]
-		3.vendor [This folder contains 3rd party header files needed in the project]
-			-iestream.hpp
-			-NDTime.hpp
+1.cadmium [This folder contains cadmium files]
+2.DESTimes [This folder contains DESTimes files]
+3.vendor [This folder contains 3rd party header files needed in the project]
+	-iestream.hpp
+	-NDTime.hpp
 		
 ##### src [This folder contains source code for the project]
-		1.data_structures [This folder contains the data structures used in the project]
-			-message.cpp
-		2.top_model [This folder contains source code for the Alternate Bit Protocol simulator]	
-			-main.cpp
+1.data_structures [This folder contains the data structures used in the project]
+	-message.cpp
+2.top_model [This folder contains source code for the Alternate Bit Protocol simulator]	
+	-main.cpp
 
 ##### test [This folder contains the unit test for the different include files]
-		1.data
-			-receiver_input_test.txt
-			-receiver_test_output.txt
-			-sender_input_test_ack_In.txt
-			-sender_input_test_control_In.txt
-			-sender_test_output.txt
-			-subnet_input_test.txt
-			-subnet_test_output.txt
-		2.src
-			1.receiver [This folder contains the unit test of the receiver]
-				-main.cpp
-			2.sender [This folder contains the unit test of the sender]
-				-main.cpp
-		3.subnet [This folder contains the unit test of the subnet]
-				-main.cpp
+1.data
+	-receiver_input_test.txt
+	-receiver_test_output.txt
+	-sender_input_test_ack_In.txt
+	-sender_input_test_control_In.txt
+	-sender_test_output.txt
+	-subnet_input_test.txt
+	-subnet_test_output.txt
+2.src
+	1.receiver [This folder contains the unit test of the receiver]
+		-main.cpp
+	2.sender [This folder contains the unit test of the sender]
+		-main.cpp
+	3.subnet [This folder contains the unit test of the subnet]
+		-main.cpp
 
-# Instructions to Run/compile the Project
+## Installation Guide 
+---
+Following the corresponding link [Installation Guide document](https://github.com/abhinavachanta/AlternateBitProtocolSimulator/tree/master/doc)instructions to install cadmium simulator dependencies on windows operating system. Follow the corresponding link [https://github.com/abhinavachanta/AlternateBitProtocolSimulator/blob/master/doc/Cadmium_Windows.pdf] guides to install cadmium on windows.
+--- 
+## Instructions to Run/compile the Project
 ---
 
 1. Inside the doc folder you can find alternatebitprotocol.pdf which contains the explanation of this simulator

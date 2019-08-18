@@ -1,5 +1,5 @@
-/** Header file for receiver 
-
+/** \brief Header file for receiver 
+*
 * Behaviour of receive is ro receive the data and send back an acknowledgement extracted 
 * from the received data after a time period.
 * receiver have two phases: active and passive

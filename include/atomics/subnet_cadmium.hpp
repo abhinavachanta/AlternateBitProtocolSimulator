@@ -1,4 +1,4 @@
-/** Header file for subnet
+/** \brief Header file for subnet
 *
 *subnets passes the packets after some a time delay.
 * in order to simulate the unreliability of the network,
@@ -62,7 +62,9 @@ using namespace std;
          
         	Subnet() noexcept{
                 /*subnet constructor initializing state trasmiting to false and index to zero.
-                */
+            /**
+            * subnet constructor initializing state trasmiting to false and index to zero.
+            */
 				state.transmiting = false; 
 
 				state.index = 0;
