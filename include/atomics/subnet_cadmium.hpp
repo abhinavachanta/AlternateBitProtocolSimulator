@@ -61,7 +61,6 @@ using namespace std;
         public:
          
         	Subnet() noexcept{
-                /*subnet constructor initializing state trasmiting to false and index to zero.
             /**
             * subnet constructor initializing state trasmiting to false and index to zero.
             */
