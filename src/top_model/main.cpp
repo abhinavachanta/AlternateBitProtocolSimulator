@@ -22,7 +22,12 @@
 #include "../../include/atomics/sender_cadmium.hpp"
 #include "../../include/atomics/receiver_cadmium.hpp"
 #include "../../include/atomics/subnet_cadmium.hpp"
+#include "../../include/output_modification/convert_output.hpp"
 
+
+
+#define SIMULATOR_OUTPUT_PATH "./data/abp_output.txt"
+#define MODIFIED_OUTPUT_FILE "./data/converted_output.txt"
 
 using namespace std;
 
@@ -209,5 +214,13 @@ std::shared_ptr<cadmium::dynamic::modeling::coupled<TIME>> TOP = std::make_share
     r.run_until(NDTime("04:00:00:000"));
     auto elapsed = std::chrono::duration_cast<std::chrono::duration<double, std::ratio<1>>>(hclock::now() - start).count();
     cout << "Simulation took:" << elapsed << "sec" << endl;
+
+    /**
+    * Convert the simulator output into required format
+    */
+    convert_output(SIMULATOR_OUTPUT_PATH, MODIFIED_OUTPUT_FILE);
+ 
+
+
     return 0;
 }

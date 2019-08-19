@@ -12,7 +12,7 @@ all: simulator tests
 
 #TARGET TO RUN ONLY BIT SIMULATOR
 simulator: main.o message.o
-	$(CC) -g -o bin/src/ABP build/src/main.o build/src/message.o
+	$(CC) -g -o bin/src/ABP build/src/main.o build/src/message.o include/output_modification/convert_output.hpp 
 	
 #TARGET TO RUN ALL THE TESTS TOGETHER (NOT SIMULATOR)
 tests: test_subnet_main.o test_sender_main.o test_receiver_main.o message.o
