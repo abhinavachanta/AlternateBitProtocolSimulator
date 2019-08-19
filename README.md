@@ -61,7 +61,7 @@ data after a time period.
 	2. sender
 		- main.o
 	3. receiver
-		-main.o
+		- main.o
 			
 ##### data [This folder contains input data for testing and output files]
 - input_abp_0.txt
@@ -69,48 +69,48 @@ data after a time period.
 - abp_output.txt
 	
 ##### doc [This folder contains documents related to project]
--alternatebitprot.pdf
--Cadmium_Documentation_Ubuntu.pdf
--Cadmium_Windows.pdf
+- alternatebitprot.pdf
+- Cadmium_Documentation_Ubuntu.pdf
+- Cadmium_Windows.pdf
 		
 ##### include [THis folder contains the header files and data structures]
-1.atomics [This folder contains the header files]
-	-receiverCadmium.hpp
-	-senderCadmium.hpp
-	-subnetCadmium.hpp
-2.data_structures [This folder contains the data structures used in the project]
-	-message.hpp
-	-message.cpp
+1. atomics [This folder contains the header files]
+	- receiverCadmium.hpp
+	- senderCadmium.hpp
+	- subnetCadmium.hpp
+2. data_structures [This folder contains the data structures used in the project]
+	- message.hpp
+	- message.cpp
 
 ##### lib [This folder contains the libraries/dependencies]
 1.cadmium [This folder contains cadmium files]
 2.DESTimes [This folder contains DESTimes files]
 3.vendor [This folder contains 3rd party header files needed in the project]
-	-iestream.hpp
-	-NDTime.hpp
+	- iestream.hpp
+	- NDTime.hpp
 		
 ##### src [This folder contains source code for the project]
-1.data_structures [This folder contains the data structures used in the project]
-	-message.cpp
-2.top_model [This folder contains source code for the Alternate Bit Protocol simulator]	
-	-main.cpp
+1. data_structures [This folder contains the data structures used in the project]
+	- message.cpp
+2. top_model [This folder contains source code for the Alternate Bit Protocol simulator]	
+	- main.cpp
 
 ##### test [This folder contains the unit test for the different include files]
-1.data
-	-receiver_input_test.txt
-	-receiver_test_output.txt
-	-sender_input_test_ack_In.txt
-	-sender_input_test_control_In.txt
-	-sender_test_output.txt
-	-subnet_input_test.txt
-	-subnet_test_output.txt
-2.src
-	1.receiver [This folder contains the unit test of the receiver]
-		-main.cpp
-	2.sender [This folder contains the unit test of the sender]
-		-main.cpp
-	3.subnet [This folder contains the unit test of the subnet]
-		-main.cpp
+1. data
+	- receiver_input_test.txt
+	- receiver_test_output.txt
+	- sender_input_test_ack_In.txt
+	- sender_input_test_control_In.txt
+	- sender_test_output.txt
+	- subnet_input_test.txt
+	- subnet_test_output.txt
+2. src
+	1. receiver [This folder contains the unit test of the receiver]
+		- main.cpp
+	2. sender [This folder contains the unit test of the sender]
+		- main.cpp
+	3. subnet [This folder contains the unit test of the subnet]
+		- main.cpp
 
 --- 
 ## Installation Guide 

@@ -67,27 +67,34 @@ using namespace std;
         /** 
         * Time constant Parameter
         */
-            TIME	PREPARATION_TIME;
+            TIME PREPARATION_TIME;
         
             /** 
             * receiver constructor.
             * initializing acknowledgement to zero and sending to false values.
             */
-            Receiver() noexcept{
-        
-                
-                
+
+            /**
+            * @brief Constructs the receiver object.
+            * Delay constant is initialised, state acknowledgement is set to value zero
+            * and  sending state to false.
+            */
+            Receiver() noexcept{    
+                                
             	PREPARATION_TIME  = TIME("00:00:10");
 				state.acknowledgement_num    = 0;
 				state.sending    = false;
-            }
+            }   
             
             /** 
             * structure state definition and declaring acknowledgment number
-            */
+            */ 
             struct state_type {
-				int acknowledgement_num;
-				bool sending;
+				int acknowledgement_num;    /** <alternate bits are send by acknowledgement number */ 
+                                            /** < Acknowledge Number */
+
+				bool sending;               /** < sending state of the receiver */
+                                            /** < sending state */
             }; 
 		    state_type state;
 
@@ -98,14 +105,14 @@ using namespace std;
             using output_ports = std::tuple<typename defs::out>;
 
             /** 
-            * internal_transition function returns void  and intializing sending variable 
+            * Internal_transition function returns void  and intializing sending variable 
             */
             void internal_transition() {
 				state.sending = false; 
             }
 
             /** 
-            * funciton external_transition gets the number of messages is greater than 1.
+            * @brief Funciton external_transition gets the number of messages is greater than 1.
             * assert to false and concatenate with one message per time unit 
             * initialize the state acknowledgement value to x.value and sending to true
             * @param e  type time 
