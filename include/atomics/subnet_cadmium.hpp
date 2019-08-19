@@ -174,4 +174,4 @@ using namespace std;
                 return os;
             }
         };    
-#endif /**  _BOOST_SIMULATION_PDEVS_SUBNET_HPP_ *\
+#endif /**  _BOOST_SIMULATION_PDEVS_SUBNET_HPP_ */
