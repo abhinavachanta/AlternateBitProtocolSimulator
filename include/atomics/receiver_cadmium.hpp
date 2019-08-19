@@ -67,8 +67,9 @@ using namespace std;
         /** 
         * Time constant Parameter
         */
-            TIME PREPARATION_TIME;
-        
+            TIME PREPARATION_TIME;  /**< PREPARATION_TIME is a TIME constant provides a time delay from acknowledge to output. */
+            //!< Time constant delay 
+    		        
             /** 
             * receiver constructor.
             * initializing acknowledgement to zero and sending to false values.
