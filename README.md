@@ -40,7 +40,7 @@ data after a time period.
 
 ---
 
-# File Structure
+## File Structure
 ---
 
 ##### bin [This folder containes the .exe files which are generated during program execution]
@@ -64,14 +64,14 @@ data after a time period.
 		- main.o
 			
 ##### data [This folder contains input data for testing and output files]
-- input_abp_0.txt
-- input_abp_1.txt
-- abp_output.txt
+1. input_abp_0.txt
+2. input_abp_1.txt
+3. abp_output.txt
 	
 ##### doc [This folder contains documents related to project]
-- alternatebitprot.pdf
-- Cadmium_Documentation_Ubuntu.pdf
-- Cadmium_Windows.pdf
+1. alternatebitprot.pdf
+2. Cadmium_Documentation_Ubuntu.pdf
+3. Cadmium_Windows.pdf
 		
 ##### include [THis folder contains the header files and data structures]
 1. atomics [This folder contains the header files]
@@ -83,9 +83,9 @@ data after a time period.
 	- message.cpp
 
 ##### lib [This folder contains the libraries/dependencies]
-1.cadmium [This folder contains cadmium files]
-2.DESTimes [This folder contains DESTimes files]
-3.vendor [This folder contains 3rd party header files needed in the project]
+1. cadmium [This folder contains cadmium files]
+2. DESTimes [This folder contains DESTimes files]
+3. vendor [This folder contains 3rd party header files needed in the project]
 	- iestream.hpp
 	- NDTime.hpp
 		
