@@ -116,7 +116,7 @@ data after a time period.
 ## Installation Guide 
 ---
 
-Following the corresponding link [Installation Guide document](https://github.com/abhinavachanta/AlternateBitProtocolSimulator/tree/master/doc)instructions to install cadmium simulator dependencies on windows operating system. Follow the corresponding link [https://github.com/abhinavachanta/AlternateBitProtocolSimulator/blob/master/doc/Cadmium_Windows.pdf] guides to install cadmium on windows.
+Following the corresponding link [Installation Guide document](https://github.com/abhinavachanta/AlternateBitProtocolSimulator/tree/master/doc) instructions to install cadmium simulator dependencies on windows operating system. Follow the corresponding link [Install cadmium](https://github.com/abhinavachanta/AlternateBitProtocolSimulator/blob/master/doc/Cadmium_Windows.pdf) guides to install cadmium on windows.
 
 --- 
 ## Instructions to Run/compile the Project
