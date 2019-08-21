@@ -23,11 +23,12 @@
 #include "../../include/atomics/receiver_cadmium.hpp"
 #include "../../include/atomics/subnet_cadmium.hpp"
 #include "../../include/output_modification/convert_output.hpp"
-
+#include "../../include/phase_observer/phase_observer.hpp"
 
 
 #define SIMULATOR_OUTPUT_PATH "./data/abp_output.txt"
 #define MODIFIED_OUTPUT_FILE "./data/converted_output.txt"
+#define PHASE_OUTPUT_FILE "./data/phase_output.txt"
 
 using namespace std;
 
@@ -215,12 +216,20 @@ std::shared_ptr<cadmium::dynamic::modeling::coupled<TIME>> TOP = std::make_share
     auto elapsed = std::chrono::duration_cast<std::chrono::duration<double, std::ratio<1>>>(hclock::now() - start).count();
     cout << "Simulation took:" << elapsed << "sec" << endl;
 
+    char sim_input[] = SIMULATOR_OUTPUT_PATH;
+    char sim_output[] = MODIFIED_OUTPUT_FILE;
+    char phase_output[] = PHASE_OUTPUT_FILE;
+
     /**
     * Convert the simulator output into required format
     */
-    convert_output(SIMULATOR_OUTPUT_PATH, MODIFIED_OUTPUT_FILE);
- 
+    convert_output(sim_input, sim_output);
 
+    /**
+    * Part E
+    * Convert the simulator output to phase wise time elapsed
+    */
+    phase_observer(sim_output, phase_output);
 
     return 0;
 }
