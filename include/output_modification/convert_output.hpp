@@ -63,7 +63,7 @@ void convert_output(char * ip_file_name, char * op_file_name) {
          * setting the column names for the output file.
          * setw() function is used to give indentation in the output file.
          */
-        myfile << setw(6) << "Time" << setw(20) << "Value" << setw(20)\ <<
+        myfile << setw(6) << "Time" << setw(20) << "Value" << setw(20) <<
             "Port" << setw(25) << "Component" << endl;
 
         /**

@@ -6,6 +6,7 @@ INCLUDECADMIUM=-I lib/cadmium/include
 #CREATE BIN AND BUILD FOLDERS TO SAVE THE COMPILED FILES DURING RUNTIME
 bin_folder := $(shell mkdir -p bin/src bin/test)
 build_folder := $(shell mkdir -p build/src build/test/subnet build/test/sender build/test/receiver)
+modified_test_outputs_folder := $(shell mkdir -p test/data/modified)
 
 #TARGET TO RUN EVERYTHING (BIT SIMULATOR + TESTS TOGETHER)
 all: simulator tests

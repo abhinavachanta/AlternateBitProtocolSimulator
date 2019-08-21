@@ -17,6 +17,10 @@
 #include "../../../lib/vendor/iestream.hpp"
 #include "../../../include/data_structures/message.hpp"
 #include "../../../include/atomics/sender_cadmium.hpp"
+#include "../../../include/output_modification/convert_output.hpp"
+
+#define SIMULATOR_OUTPUT_PATH "./test/data/sender_test_output.txt"
+#define MODIFIED_OUTPUT_FILE "./test/data/modified/converted_sender_output.txt"
 
 using namespace std;
 using high_resolution_clock = chrono::high_resolution_clock;
@@ -165,5 +169,14 @@ int main() {
     auto elapsed = std::chrono::duration_cast <std::chrono::duration<double,
                    std::ratio < 1>>> (high_resolution_clock::now() - start).count();
     cout << "Simulation took:" << elapsed << "sec" << endl;
+
+    char sim_input[] = SIMULATOR_OUTPUT_PATH;
+    char sim_output[] = MODIFIED_OUTPUT_FILE;
+
+    /**
+    * Convert the simulator sender output into required format
+    */
+    convert_output(sim_input, sim_output);
+
     return 0;
 }

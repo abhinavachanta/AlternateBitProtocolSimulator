@@ -215,12 +215,13 @@ std::shared_ptr<cadmium::dynamic::modeling::coupled<TIME>> TOP = std::make_share
     auto elapsed = std::chrono::duration_cast<std::chrono::duration<double, std::ratio<1>>>(hclock::now() - start).count();
     cout << "Simulation took:" << elapsed << "sec" << endl;
 
-    /**
-    * Convert the simulator output into required format
-    */
-    convert_output(SIMULATOR_OUTPUT_PATH, MODIFIED_OUTPUT_FILE);
- 
+    char sim_input[] = SIMULATOR_OUTPUT_PATH;
+    char sim_output[] = MODIFIED_OUTPUT_FILE;
 
+    /**
+    * Convert the simulator receiver output into required format
+    */
+    convert_output(sim_input, sim_output);
 
     return 0;
 }
