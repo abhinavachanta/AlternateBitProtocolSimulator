@@ -85,7 +85,7 @@ using global_time=cadmium::logger::logger<cadmium::logger::logger_global_time, c
 using local_time=cadmium::logger::logger<cadmium::logger::logger_local_time, cadmium::dynamic::logger::formatter<TIME>, oss_sink_provider>;
 using log_all=cadmium::logger::multilogger<info, debug, state, log_messages, routing, global_time, local_time>;
 
-using logger_top=cadmium::logger::multilogger<log_messages, global_time>;
+using logger_top=cadmium::logger::multilogger<log_messages, global_time >;
 
 
 /*******************************************/
