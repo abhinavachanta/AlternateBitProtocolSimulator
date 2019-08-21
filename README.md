@@ -188,12 +188,14 @@ Following the corresponding link [Installation Guide document](https://github.co
 
 			> Example: mv abp_output.txt abp_output_0.txt
 			
+	7.  The active, passive and overall time for sender component in simulator is recorded while simulator build. This work is done towards part E of the project.
+		This output is stored in 'phase_output.txt' under /data folder.
+			
 **NOTE** - To run both the simulator and tests together, the following commands can be used from the project root. The output files will be according to the paths described above.
 			
 			> make clean_all; make all
 			
-	7.  The active, passive and overall time for sender component in simulator is recorded while simulator build. This work is done towards part E of the project.
-		This output is stored in 'phase_output.txt' under /data folder.
+
 			
 			
 		 		
