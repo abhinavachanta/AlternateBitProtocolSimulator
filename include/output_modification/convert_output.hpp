@@ -72,17 +72,26 @@ void convert_output(char * ip_file_name, char * op_file_name) {
          */
         while (getline(filestream, srg)) {
             /**
-             *parsing according to the required delimiters
+             * Check if line starts with digit, 
+             * it means it is time component
              */
             if (isdigit(srg[0]) == true) {
                 time.assign(srg);
             }
             start = 0;
+
+            /**
+             * Fetch the value inside {} 
+             */
             vala = srg.find('{');
 
             while (vala > 0) {
                 valb = srg.find('}', start);
 
+                /**
+                 * If value between {} is greater than 1,
+                 * then parse the port and component
+                 */
                 if (valb - vala > 1) {
                     porta = srg.find(port_delimiter, start);
                     portb = srg.find(":", porta + 2);
