@@ -1,6 +1,6 @@
 /**
- *Cristina Ruiz Martin
- *ARSLab - Carleton University
+ * Dr. Cristina Ruiz Martin
+ * ARSLab - Carleton University
  */
 
 #ifndef _BOOST_SIMULATION_PDEVS_SENDER_HPP_

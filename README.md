@@ -82,6 +82,7 @@ data after a time period.
 2. data_structures [This folder contains the data structures used in the project]
 	- message.hpp
 	- message.cpp
+
 3. output_modification [This folder contains the header for output modification]
     - convert_output.hpp
 
@@ -106,11 +107,12 @@ data after a time period.
 	- sender_test_output.txt
 	- subnet_input_test.txt
 	- subnet_test_output.txt
+
 	1. modified [this folder contains the modified test outputs]
-	    - converted_receiver_output.txt
+	  - converted_receiver_output.txt
 		- converted_sender_output.txt
 		- converted_subnet_output.txt
-	
+   
 2. src
 	1. receiver [This folder contains the unit test of the receiver]
 		- main.cpp
@@ -138,6 +140,7 @@ Following the corresponding link [Installation Guide document](https://github.co
 		> Example: INCLUDECADMIUM=-I lib/cadmium/include
     
 3. **Run the tests**
+
 	1. Run subnet test
 
 		- Open the terminal. Press in your keyboard Ctrl+Alt+t
@@ -157,11 +160,12 @@ Following the corresponding link [Installation Guide document](https://github.co
 		- To check the output of the test simulation, goto /test/data folder and you can see following files:
 			"subnet_test_output.txt" - Initial subnet simulator output
 			"modified/converted_subnet_output.txt" - Modified output for Part D of the project.
-			
+
 	2. To run receiver and sender tests, the steps are analogous to 1
 			
 4. **Run the simulator**
 	1. Open the terminal. Press in your keyboard Ctrl+Alt+t
+
 	2. Set the command prompt in the AlternateBitProtocol folder. Set the terminal path to this folder.
 
 		> Example: cd ../AlternateBitProtocol/
@@ -170,6 +174,7 @@ Following the corresponding link [Installation Guide document](https://github.co
 
 		> make clean_simulator; make simulator
 
+
 	4. To run the simulation, from the project root, type in the terminal 
 
 		> ./NAME_OF_THE_COMPLIED_FILE path and NAME_OF_THE_INPUT_FILE. For this test you need to type: 
@@ -177,9 +182,9 @@ Following the corresponding link [Installation Guide document](https://github.co
 		> ./bin/src/ABP ./data/input_abp_1.txt
 
 	5. To check the output of the simulation, goto /data folder and you can see following files:
-		"abp_output.txt" - Initial simulator output
+		  "abp_output.txt" - Initial simulator output
 	    "converted_output.txt" - Modified output for Part D of the project.
-
+      
 	6.  To execute the simulator with different inputs
 		1. Create new .txt files with the same structure as input_abp_0.txt or input_abp_1.txt
 		2. Run the simulator using the instructions in step 4
@@ -196,6 +201,5 @@ Following the corresponding link [Installation Guide document](https://github.co
 			> make clean_all; make all
 			
 
-			
 			
 		 		
