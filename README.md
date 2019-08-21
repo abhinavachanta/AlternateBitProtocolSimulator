@@ -106,11 +106,12 @@ data after a time period.
 	- sender_test_output.txt
 	- subnet_input_test.txt
 	- subnet_test_output.txt
+
 	1. modified [this folder contains the modified test outputs]
-	    - converted_receiver_output.txt
+	  - converted_receiver_output.txt
 		- converted_sender_output.txt
 		- converted_subnet_output.txt
-	
+
 2. src
 	1. receiver [This folder contains the unit test of the receiver]
 		- main.cpp
@@ -138,12 +139,13 @@ Following the corresponding link [Installation Guide document](https://github.co
 		> Example: INCLUDECADMIUM=-I lib/cadmium/include
     
 3. **Run the tests**
+
 	1. Run subnet test
 
 		- Open the terminal. Press in your keyboard Ctrl+Alt+t
 
 		- Set the command prompt to base folder where makefile is. Set the terminal path to this folder.
-
+    
 			> Example: cd ../AlternateBitProtocol/
 		
 		- To compile the test, type in the terminal:
@@ -162,6 +164,7 @@ Following the corresponding link [Installation Guide document](https://github.co
 			
 4. **Run the simulator**
 	1. Open the terminal. Press in your keyboard Ctrl+Alt+t
+
 	2. Set the command prompt in the AlternateBitProtocol folder. Set the terminal path to this folder.
 
 		> Example: cd ../AlternateBitProtocol/
@@ -170,7 +173,7 @@ Following the corresponding link [Installation Guide document](https://github.co
 
 		> make clean_simulator; make simulator
 
-	4. To run the simulation, from the project root, type in the terminal 
+	4. To run the simulation, goto the project root and type in the terminal 
 
 		> ./NAME_OF_THE_COMPLIED_FILE path and NAME_OF_THE_INPUT_FILE. For this test you need to type: 
 
@@ -191,6 +194,5 @@ Following the corresponding link [Installation Guide document](https://github.co
 **NOTE** - To run both the simulator and tests together, the following commands can be used from the project root. The output files will be according to the paths described above.
 			
 			> make clean_all; make all
-			
-			
+
 		 		
