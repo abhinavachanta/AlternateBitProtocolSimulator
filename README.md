@@ -188,9 +188,9 @@ Following the corresponding link [Installation Guide document](https://github.co
 
 			> Example: mv abp_output.txt abp_output_0.txt
 			
-**NOTE** - To run both the simulator and tests together, the following commands can be used from the project root. 
+**NOTE** - To run both the simulator and tests together, the following commands can be used from the project root. The output files will be according to the paths described above.
 			
 			> make clean_all; make all
 			
-			The output files will be according to the paths described above.
+			
 		 		
