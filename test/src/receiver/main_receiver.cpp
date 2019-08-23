@@ -26,8 +26,9 @@
 #include "../../../include/atomics/receiver_cadmium.hpp"
 #include "../../../include/output_modification/convert_output.hpp"
 
-#define SIMULATOR_OUTPUT_PATH "./test/data/receiver_test_output.txt"
-#define MODIFIED_OUTPUT_FILE "./test/data/modified/converted_receiver_output.txt"
+#define RECEIVER_INPUT_DATA_CONTROL "./test/data/receiver_input_test.txt"
+#define RECEIVER_SIMULATOR_OUTPUT_PATH "./test/data/receiver_test_output.txt"
+#define RECEIVER_MODIFIED_OUTPUT_PATH "./test/data/modified/converted_receiver_output.txt"
 
 using namespace std;
 using high_resolution_clock = chrono::high_resolution_clock;
@@ -65,6 +66,9 @@ template <typename T>
 
 int main() {
 
+    char sim_input[] = RECEIVER_SIMULATOR_OUTPUT_PATH;
+    char sim_output[] = RECEIVER_MODIFIED_OUTPUT_PATH;
+
     /** 
      * variable to measure simulation execution time
      */
@@ -74,7 +78,7 @@ int main() {
      * The execution logs and messages are saved to the 
      * 'receiver_test_output.txt' file
      */
-    static std::ofstream out_data("test/data/receiver_test_output.txt");
+    static std::ofstream out_data(RECEIVER_SIMULATOR_OUTPUT_PATH);
 
     /**
      * Structure which invokes the ostream sink function
@@ -123,7 +127,7 @@ int main() {
      * Specify the input control file and set it as 
      * input data control for execution of the receiver component
      */
-    string input_data_control = "test/data/receiver_input_test.txt"; 
+    string input_data_control = RECEIVER_INPUT_DATA_CONTROL; 
     const char *i_input_data_control = input_data_control.c_str();
 
     /**
@@ -208,9 +212,6 @@ int main() {
     auto elapsed = std::chrono::duration_cast <std::chrono::duration <double, 
                    std::ratio < 1>>> (high_resolution_clock::now() - start).count();
     cout << "Simulation took:" << elapsed << "sec" << endl;
-
-    char sim_input[] = SIMULATOR_OUTPUT_PATH;
-    char sim_output[] = MODIFIED_OUTPUT_FILE;
 
     /**
     * Convert the simulator receiver output into required format

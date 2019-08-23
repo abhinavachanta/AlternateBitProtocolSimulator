@@ -59,6 +59,9 @@ public:
 
 int main(int argc, char ** argv) {
 
+  char sim_input[] = SIMULATOR_OUTPUT_PATH;
+  char sim_output[] = MODIFIED_OUTPUT_FILE;
+
   if (argc < 2) {
    cout << "you are using this program with wrong parameters. Te program should be invoked as follow:";
    cout << argv[0] << " path to the input file " << endl;
@@ -214,9 +217,6 @@ std::shared_ptr<cadmium::dynamic::modeling::coupled<TIME>> TOP = std::make_share
     r.run_until(NDTime("04:00:00:000"));
     auto elapsed = std::chrono::duration_cast<std::chrono::duration<double, std::ratio<1>>>(hclock::now() - start).count();
     cout << "Simulation took:" << elapsed << "sec" << endl;
-
-    char sim_input[] = SIMULATOR_OUTPUT_PATH;
-    char sim_output[] = MODIFIED_OUTPUT_FILE;
 
     /**
     * Convert the simulator receiver output into required format

@@ -19,8 +19,9 @@
 #include "../../../include/atomics/subnet_cadmium.hpp"
 #include "../../../include/output_modification/convert_output.hpp"
 
-#define SIMULATOR_OUTPUT_PATH "./test/data/subnet_test_output.txt"
-#define MODIFIED_OUTPUT_FILE "./test/data/modified/converted_subnet_output.txt"
+#define SUBNET_SIMULATOR_INPUT_PATH "./test/data/subnet_input_test.txt"
+#define SUBNET_SIMULATOR_OUTPUT_PATH "./test/data/subnet_test_output.txt"
+#define SUBNET_MODIFIED_OUTPUT_PATH "./test/data/modified/converted_subnet_output.txt"
 
 using namespace std;
 using high_resolution_clock = chrono::high_resolution_clock;
@@ -42,10 +43,14 @@ template <typename T>
     };
 
 int main() {
+
+    char sim_input[] = SUBNET_SIMULATOR_OUTPUT_PATH;
+    char sim_output[] = SUBNET_MODIFIED_OUTPUT_PATH;
+
     auto start = high_resolution_clock::now(); //to measure simulation execution time
 
     /*************** Loggers *******************/
-    static std::ofstream out_data("test/data/subnet_test_output.txt");
+    static std::ofstream out_data(SUBNET_SIMULATOR_OUTPUT_PATH);
     struct oss_sink_provider {
         static std::ostream &sink() {
             return out_data;
@@ -87,7 +92,7 @@ int main() {
     /********************************************/
     /****** APPLICATION GENERATOR *******************/
     /********************************************/
-    string input_data = "test/data/subnet_input_test.txt"; 
+    string input_data = SUBNET_SIMULATOR_INPUT_PATH; 
     const char *i_input_data = input_data.c_str();
 
     std::shared_ptr <cadmium::dynamic::modeling::model> generator = 
@@ -150,9 +155,6 @@ int main() {
     auto elapsed = std::chrono::duration_cast <std::chrono::duration<double, 
                    std::ratio < 1>>> (high_resolution_clock::now() - start).count();
     cout << "Simulation took:" << elapsed << "sec" << endl;
-
-    char sim_input[] = SIMULATOR_OUTPUT_PATH;
-    char sim_output[] = MODIFIED_OUTPUT_FILE;
 
     /**
     * Convert the simulator subnet output into required format

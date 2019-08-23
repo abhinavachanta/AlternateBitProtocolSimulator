@@ -17,9 +17,9 @@ simulator: main.o message.o
 	
 #TARGET TO RUN ALL THE TESTS TOGETHER (NOT SIMULATOR)
 tests: test_subnet_main.o test_sender_main.o test_receiver_main.o message.o
-		$(CC) -g -o bin/test/SUBNET_TEST build/test/subnet/main.o build/src/message.o
-		$(CC) -g -o bin/test/SENDER_TEST build/test/sender/main.o build/src/message.o 
-		$(CC) -g -o bin/test/RECEIVER_TEST build/test/receiver/main.o build/src/message.o  
+		$(CC) -g -o bin/test/SUBNET_TEST build/test/subnet/main.o build/src/message.o include/output_modification/convert_output.hpp 
+		$(CC) -g -o bin/test/SENDER_TEST build/test/sender/main.o build/src/message.o include/output_modification/convert_output.hpp 
+		$(CC) -g -o bin/test/RECEIVER_TEST build/test/receiver/main.o build/src/message.o include/output_modification/convert_output.hpp 
 
 main.o: src/top_model/main.cpp
 	$(CC) -g -c $(CFLAGS) $(INCLUDECADMIUM) src/top_model/main.cpp -o build/src/main.o
