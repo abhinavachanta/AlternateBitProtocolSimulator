@@ -28,7 +28,7 @@
 
 #define SIMULATOR_OUTPUT_PATH "./data/abp_output.txt"
 #define MODIFIED_OUTPUT_FILE "./data/converted_output.txt"
-#define PHASE_OUTPUT_FILE "./data/phase_output.txt"
+#define SENDER_PHASE_OUTPUT_FILE "./data/phase_output.txt"
 
 using namespace std;
 
@@ -60,8 +60,12 @@ public:
 
 int main(int argc, char ** argv) {
 
+    char sim_input[] = SIMULATOR_OUTPUT_PATH;
+    char sim_output[] = MODIFIED_OUTPUT_FILE;
+    char phase_output[] = SENDER_PHASE_OUTPUT_FILE;
+
   if (argc < 2) {
-   cout << "you are using this program with wrong parameters. Te program should be invoked as follow:";
+   cout << "you are using this program with wrong parameters. The program should be invoked as follow:";
    cout << argv[0] << " path to the input file " << endl;
    return 1; 
   }
@@ -69,7 +73,7 @@ int main(int argc, char ** argv) {
   auto start = hclock::now(); //to measure simulation execution time
 
 /*************** Loggers *******************/
-  static std::ofstream out_data("data/abp_output.txt");
+  static std::ofstream out_data(SIMULATOR_OUTPUT_PATH);
     struct oss_sink_provider{
         static std::ostream& sink(){          
             return out_data;
@@ -215,10 +219,6 @@ std::shared_ptr<cadmium::dynamic::modeling::coupled<TIME>> TOP = std::make_share
     r.run_until(NDTime("04:00:00:000"));
     auto elapsed = std::chrono::duration_cast<std::chrono::duration<double, std::ratio<1>>>(hclock::now() - start).count();
     cout << "Simulation took:" << elapsed << "sec" << endl;
-
-    char sim_input[] = SIMULATOR_OUTPUT_PATH;
-    char sim_output[] = MODIFIED_OUTPUT_FILE;
-    char phase_output[] = PHASE_OUTPUT_FILE;
 
     /**
     * Convert the simulator output into required format

@@ -125,7 +125,10 @@ data after a time period.
 ## Installation Guide 
 ---
 
-Following the corresponding link [Installation Guide document](https://github.com/abhinavachanta/AlternateBitProtocolSimulator/tree/master/doc) instructions to install cadmium simulator dependencies on windows operating system. Follow the corresponding link [Install cadmium](https://github.com/abhinavachanta/AlternateBitProtocolSimulator/blob/master/doc/Cadmium_Windows.pdf) guides to install cadmium on windows.
+Following the corresponding link on instructions to install cadmium simulator dependencies on windows operating system:(https://github.com/abhinavachanta/AlternateBitProtocolSimulator/blob/master/doc/Cadmium_Windows.pdf)
+Then run the following command from terminal to clone the project along with the submodules. 
+
+	> Example: git clone --recurse-submodules -b submodule_simulator_modification https://github.com/abhinavachanta/AlternateBitProtocolSimulator.git AlternateBitProtocol
 
 --- 
 ## Instructions to Run/compile the Project

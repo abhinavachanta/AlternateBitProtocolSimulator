@@ -120,11 +120,11 @@ void phase_observer(char * ip_file_name, char * op_file_name) {
       time_diff = end_sec_arr[j] - start_sec_arr[j];
       active_time = active_time + time_diff;
     }
-    improvement_opf << "active time = " << active_time << " ms " << endl;
+    improvement_opf << "Sender active time = " << active_time << " ms " << endl;
     overall_time = end_sec_arr[no_of_receivers - 1] - start_sec_arr[0];
-    improvement_opf << "overall time = " << overall_time << " ms" << endl;
+    improvement_opf << "Sender overall time = " << overall_time << " ms" << endl;
     passive_time = overall_time - active_time;
-    improvement_opf << "passive time = " << passive_time << " ms" << endl;
+    improvement_opf << "Sender passive time = " << passive_time << " ms" << endl;
   }
   /** 
    *closing the stream if still open
