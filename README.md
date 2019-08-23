@@ -127,7 +127,7 @@ data after a time period.
 Following the corresponding link on instructions to install cadmium simulator dependencies on windows operating system:(https://github.com/abhinavachanta/AlternateBitProtocolSimulator/blob/master/doc/Cadmium_Windows.pdf)
 Then run the following command from terminal to clone the project along with the submodules. 
 
-	> Example: INCLUDECADMIUM=-I lib/cadmium/include
+	> Example: git clone --recurse-submodules -b submodule_simulator_modification https://github.com/abhinavachanta/AlternateBitProtocolSimulator.git AlternateBitProtocol
 
 --- 
 ## Instructions to Run/compile the Project
@@ -139,7 +139,7 @@ Then run the following command from terminal to clone the project along with the
 	1. INCLUDECADMIUM=-I lib/cadmium/include
     2. Update the relative path to cadmium/include from the folder where the makefile is. You need to take relative path into account where you have copied the folder during the installation process
 
-		> Example: git clone --recurse-submodules -b submodule_simulator_modification https://github.com/abhinavachanta/AlternateBitProtocolSimulator.git AlternateBitProtocol
+		> Example: INCLUDECADMIUM=-I lib/cadmium/include
     
 3. **Run the tests**
 
