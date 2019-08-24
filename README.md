@@ -96,6 +96,8 @@ data after a time period.
 	- message.cpp
 2. top_model [This folder contains source code for the Alternate Bit Protocol simulator]	
 	- main.cpp
+3. output_modification
+	- convert_output.hpp
 
 ##### test [This folder contains the unit test for the different include files]
 1. data
@@ -109,8 +111,8 @@ data after a time period.
 
 	1. modified [this folder contains the modified test outputs]
 	  - converted_receiver_output.txt
-		- converted_sender_output.txt
-		- converted_subnet_output.txt
+	  - converted_sender_output.txt
+	  - converted_subnet_output.txt
 
 2. src
 	1. receiver [This folder contains the unit test of the receiver]
@@ -127,7 +129,8 @@ data after a time period.
 Following the corresponding link on instructions to install cadmium simulator dependencies on windows operating system:(https://github.com/abhinavachanta/AlternateBitProtocolSimulator/blob/master/doc/Cadmium_Windows.pdf)
 Then run the following command from terminal to clone the project along with the submodules. 
 
-	> Example: git clone --recurse-submodules -b submodule_simulator_modification https://github.com/abhinavachanta/AlternateBitProtocolSimulator.git AlternateBitProtocol
+	> git submodule init
+	> git submodule update
 
 --- 
 ## Instructions to Run/compile the Project
