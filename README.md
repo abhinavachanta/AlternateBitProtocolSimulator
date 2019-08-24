@@ -12,7 +12,7 @@
 - [Project Description](#Project-Description)
 - [File Structure](#File-Structure)
 - [Installation Guide](#Installation-Guide)
-- [Steps to Run Simulator](#Steps-to-Run-Simulator)
+- [Instructions to run the project](#Instructions-to-run-the-project)
 
 ---
 
@@ -138,7 +138,7 @@ Then run the following command from terminal to clone the project along with the
 	> git submodule update
 
 --- 
-## Instructions to Run/compile the Project
+## Instructions to run the project
 ---
 
 1. Inside the doc folder you can find alternatebitprotocol.pdf which contains the explanation of this simulator
