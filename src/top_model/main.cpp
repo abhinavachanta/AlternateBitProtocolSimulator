@@ -24,10 +24,8 @@
 #include "../../include/atomics/subnet_cadmium.hpp"
 #include "../../include/output_modification/convert_output.hpp"
 
-
-
-#define SIMULATOR_OUTPUT_PATH "./data/abp_output.txt"
-#define MODIFIED_OUTPUT_FILE "./data/converted_output.txt"
+#define SIMULATOR_OUTPUT_PATH "data/abp_output.txt"
+#define MODIFIED_OUTPUT_FILE "data/converted_output.txt"
 
 using namespace std;
 
@@ -59,8 +57,8 @@ public:
 
 int main(int argc, char ** argv) {
 
-  char sim_input[] = SIMULATOR_OUTPUT_PATH;
-  char sim_output[] = MODIFIED_OUTPUT_FILE;
+  const char *sim_input = SIMULATOR_OUTPUT_PATH;
+  const char *sim_output = MODIFIED_OUTPUT_FILE;
 
   if (argc < 2) {
    cout << "you are using this program with wrong parameters. Te program should be invoked as follow:";

@@ -9,10 +9,10 @@
 
 ### Table of Contents 
 ------
-- [Project Description](#Project_Description)
-- [File Structure](#File_Structure)
-- [Installation Guide](#Installation_Guide)
-- [Steps to Run Simulator](#Steps_to_Run_Simulator)
+- [Project Description](#Project-Description)
+- [File Structure](#File-Structure)
+- [Installation Guide](#Installation-Guide)
+- [Steps to Run Simulator](#Steps-to-Run-Simulator)
 
 ---
 
