@@ -6,19 +6,20 @@ INCLUDECADMIUM=-I lib/cadmium/include
 #CREATE BIN AND BUILD FOLDERS TO SAVE THE COMPILED FILES DURING RUNTIME
 bin_folder := $(shell mkdir -p bin/src bin/test)
 build_folder := $(shell mkdir -p build/src build/test/subnet build/test/sender build/test/receiver)
+modified_test_outputs_folder := $(shell mkdir -p test/data/modified)
 
 #TARGET TO RUN EVERYTHING (BIT SIMULATOR + TESTS TOGETHER)
 all: simulator tests
 
 #TARGET TO RUN ONLY BIT SIMULATOR
-simulator: main.o message.o
-	$(CC) -g -o bin/src/ABP build/src/main.o build/src/message.o include/output_modification/convert_output.hpp include/phase_observer/phase_observer.hpp 
+simulator: main.o message.o convert_output.o phase_observer.o
+	$(CC) -g -o bin/src/ABP build/src/main.o build/src/message.o build/src/convert_output.o build/src/phase_observer.o
 	
 #TARGET TO RUN ALL THE TESTS TOGETHER (NOT SIMULATOR)
-tests: test_subnet_main.o test_sender_main.o test_receiver_main.o message.o
-		$(CC) -g -o bin/test/SUBNET_TEST build/test/subnet/main.o build/src/message.o
-		$(CC) -g -o bin/test/SENDER_TEST build/test/sender/main.o build/src/message.o 
-		$(CC) -g -o bin/test/RECEIVER_TEST build/test/receiver/main.o build/src/message.o  
+tests: test_subnet_main.o test_sender_main.o test_receiver_main.o message.o convert_output.o
+		$(CC) -g -o bin/test/SUBNET_TEST build/test/subnet/main.o build/src/message.o build/src/convert_output.o
+		$(CC) -g -o bin/test/SENDER_TEST build/test/sender/main.o build/src/message.o build/src/convert_output.o 
+		$(CC) -g -o bin/test/RECEIVER_TEST build/test/receiver/main.o build/src/message.o build/src/convert_output.o 
 
 main.o: src/top_model/main.cpp
 	$(CC) -g -c $(CFLAGS) $(INCLUDECADMIUM) src/top_model/main.cpp -o build/src/main.o
@@ -32,8 +33,14 @@ test_sender_main.o: test/src/sender/main_sender.cpp
 test_receiver_main.o: test/src/receiver/main_receiver.cpp
 	$(CC) -g -c $(CFLAGS) $(INCLUDECADMIUM) test/src/receiver/main_receiver.cpp -o build/test/receiver/main.o
 
-message.o: 
+message.o: src/data_structures/message.cpp
 	$(CC) -g -c $(CFLAGS) $(INCLUDECADMIUM) src/data_structures/message.cpp -o build/src/message.o
+
+convert_output.o: src/output_modification/convert_output.cpp
+	$(CC) -g -c $(CFLAGS) $(INCLUDECADMIUM) src/output_modification/convert_output.cpp -o build/src/convert_output.o
+	
+phase_observer.o: src/phase_observer/phase_observer.cpp
+	$(CC) -g -c $(CFLAGS) $(INCLUDECADMIUM) src/phase_observer/phase_observer.cpp -o build/src/phase_observer.o
 
 #CLEAN COMMANDS
 clean_all: clean_simulator clean_tests

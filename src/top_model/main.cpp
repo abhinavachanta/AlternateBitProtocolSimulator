@@ -60,9 +60,9 @@ public:
 
 int main(int argc, char ** argv) {
 
-    char sim_input[] = SIMULATOR_OUTPUT_PATH;
-    char sim_output[] = MODIFIED_OUTPUT_FILE;
-    char phase_output[] = SENDER_PHASE_OUTPUT_FILE;
+    const char *sim_input = SIMULATOR_OUTPUT_PATH;
+    const char *sim_output = MODIFIED_OUTPUT_FILE;
+    const char *phase_output = SENDER_PHASE_OUTPUT_FILE;
 
   if (argc < 2) {
    cout << "you are using this program with wrong parameters. The program should be invoked as follow:";
