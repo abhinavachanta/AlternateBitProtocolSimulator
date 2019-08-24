@@ -97,7 +97,7 @@ data after a time period.
 2. top_model [This folder contains source code for the Alternate Bit Protocol simulator]	
 	- main.cpp
 3. output_modification
-	- convert_output.hpp
+	- convert_output.cpp
 
 ##### test [This folder contains the unit test for the different include files]
 1. data
