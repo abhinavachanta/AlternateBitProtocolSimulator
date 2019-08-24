@@ -12,7 +12,7 @@
 - [Project Description](#Project-Description)
 - [File Structure](#File-Structure)
 - [Installation Guide](#Installation-Guide)
-- [Instructions to Run/compile the Project](#Instructions-to-Run/compile-the-Project)
+- [Instructions to run the project](#Instructions-to-run-the-project)
 
 ---
 
