@@ -9,10 +9,10 @@
 
 ### Table of Contents 
 ------
-- [Project Description](#Project_Description)
-- [File Structure](#File_Structure)
-- [Installation Guide](#Installation_Guide)
-- [Steps to Run Simulator](#Steps_to_Run_Simulator)
+- [Project Description](#Project-Description)
+- [File Structure](#File-Structure)
+- [Installation Guide](#Installation-Guide)
+- [Steps to Run Simulator](#Steps-to-Run-Simulator)
 
 ---
 
@@ -68,6 +68,7 @@ data after a time period.
 2. input_abp_1.txt
 3. abp_output.txt
 4. converted_output.txt
+5. phase_output.txt
 	
 ##### doc [This folder contains documents related to project]
 1. alternatebitprot.pdf
@@ -82,9 +83,10 @@ data after a time period.
 2. data_structures [This folder contains the data structures used in the project]
 	- message.hpp
 	- message.cpp
-
 3. output_modification [This folder contains the header for output modification]
     - convert_output.hpp
+4. phase_observer [This folder contains the header for sender phase observer]
+    - phase_observer.hpp
 
 ##### lib [This folder contains the libraries/dependencies]
 1. cadmium [This folder contains cadmium files]
@@ -97,6 +99,10 @@ data after a time period.
 	- message.cpp
 2. top_model [This folder contains source code for the Alternate Bit Protocol simulator]	
 	- main.cpp
+3. output_modification
+	- convert_output.cpp
+4. phase_observer
+	- phase_observer.cpp
 
 ##### test [This folder contains the unit test for the different include files]
 1. data
@@ -128,7 +134,8 @@ data after a time period.
 Following the corresponding link on instructions to install cadmium simulator dependencies on windows operating system:(https://github.com/abhinavachanta/AlternateBitProtocolSimulator/blob/master/doc/Cadmium_Windows.pdf)
 Then run the following command from terminal to clone the project along with the submodules. 
 
-	> Example: git clone --recurse-submodules -b submodule_simulator_modification https://github.com/abhinavachanta/AlternateBitProtocolSimulator.git AlternateBitProtocol
+	> git submodule init
+	> git submodule update
 
 --- 
 ## Instructions to Run/compile the Project
