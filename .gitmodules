@@ -1,0 +1,6 @@
+[submodule "lib/cadmium"]
+	path = lib/cadmium
+	url = https://github.com/SimulationEverywhere/cadmium
+[submodule "lib/DESTimes"]
+	path = lib/DESTimes
+	url = https://github.com/Laouen/DESTimes.git

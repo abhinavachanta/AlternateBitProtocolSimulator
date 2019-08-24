@@ -14,7 +14,7 @@
 #include <cadmium/logger/common_loggers.hpp>
 
 
-#include "../../lib/vendor/NDTime.hpp"
+#include "../../lib/DESTimes/include/NDTime.hpp"
 #include "../../lib/vendor/iestream.hpp"
 
 #include "../../include/data_structures/message.hpp"
@@ -22,7 +22,10 @@
 #include "../../include/atomics/sender_cadmium.hpp"
 #include "../../include/atomics/receiver_cadmium.hpp"
 #include "../../include/atomics/subnet_cadmium.hpp"
+#include "../../include/output_modification/convert_output.hpp"
 
+#define SIMULATOR_OUTPUT_PATH "data/abp_output.txt"
+#define MODIFIED_OUTPUT_FILE "data/converted_output.txt"
 
 using namespace std;
 
@@ -53,6 +56,9 @@ public:
 
 
 int main(int argc, char ** argv) {
+
+  const char *sim_input = SIMULATOR_OUTPUT_PATH;
+  const char *sim_output = MODIFIED_OUTPUT_FILE;
 
   if (argc < 2) {
    cout << "you are using this program with wrong parameters. Te program should be invoked as follow:";
@@ -209,5 +215,11 @@ std::shared_ptr<cadmium::dynamic::modeling::coupled<TIME>> TOP = std::make_share
     r.run_until(NDTime("04:00:00:000"));
     auto elapsed = std::chrono::duration_cast<std::chrono::duration<double, std::ratio<1>>>(hclock::now() - start).count();
     cout << "Simulation took:" << elapsed << "sec" << endl;
+
+    /**
+    * Convert the simulator receiver output into required format
+    */
+    convert_output(sim_input, sim_output);
+
     return 0;
 }
