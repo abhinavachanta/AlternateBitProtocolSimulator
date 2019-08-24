@@ -12,7 +12,7 @@
 - [Project Description](#Project-Description)
 - [File Structure](#File-Structure)
 - [Installation Guide](#Installation-Guide)
-- [Steps to Run Simulator](#Steps-to-Run-Simulator)
+- [Instructions to Run/compile the Project](#Instructions-to-Run/compile-the-Project)
 
 ---
 
