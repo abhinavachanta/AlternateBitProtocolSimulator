@@ -203,8 +203,8 @@ Then run the following command from terminal to clone the project along with the
 
 			> Example: mv abp_output.txt abp_output_0.txt
 			
-	7.  The active, passive and overall time for sender component in simulator is recorded while simulator build. This work is done towards part E of the project.
-		This output is stored in 'phase_output.txt' under /data folder.
+	7.  The active, passive and overall time for sender component in simulator is recorded while simulator build. This work is done towards part E of the project. It considers the 'converted_output.txt' file from part D as its input to determine the phase timings.  This 'converted_output.txt' file in part D was generated using ./data/input_abp_1.txt.
+		This output of this feature (Part E) is stored in 'phase_output.txt' under /data folder.
 			
 **NOTE** - To run both the simulator and tests together, the following commands can be used from the project root. The output files will be according to the paths described above.
 			
