@@ -106,12 +106,6 @@ void phase_observer(const char *ip_file_name, const char *op_file_name) {
      * time taken from one packet sentout to acknowledgement receivedout is called active_time.
      * difference between overall time  and active time gives passive time 
      */
-    for (int j = 0; j < no_of_packets; j++) {
-      cout << start_sec_arr[j] << endl;
-    }
-    for (int j = 0; j < no_of_receivers; j++) {
-      cout << end_sec_arr[j] << endl;
-    }
     if (no_of_packets > no_of_receivers) {
       size_of_array = no_of_receivers;
     } else {
