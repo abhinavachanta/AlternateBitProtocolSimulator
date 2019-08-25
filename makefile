@@ -12,12 +12,12 @@ modified_test_outputs_folder := $(shell mkdir -p test/data/modified)
 all: simulator tests
 
 #TARGET TO RUN ONLY BIT SIMULATOR
-simulator: main.o message.o convert_output.o
-	$(CC) -g -o bin/src/ABP build/src/main.o build/src/message.o build/src/convert_output.o 
+simulator: main.o message.o convert_output.o phase_observer.o
+	$(CC) -g -o bin/src/ABP build/src/main.o build/src/message.o build/src/convert_output.o build/src/phase_observer.o
 	
 #TARGET TO RUN ALL THE TESTS TOGETHER (NOT SIMULATOR)
 tests: test_subnet_main.o test_sender_main.o test_receiver_main.o message.o convert_output.o
-		$(CC) -g -o bin/test/SUBNET_TEST build/test/subnet/main.o build/src/message.o build/src/convert_output.o 
+		$(CC) -g -o bin/test/SUBNET_TEST build/test/subnet/main.o build/src/message.o build/src/convert_output.o
 		$(CC) -g -o bin/test/SENDER_TEST build/test/sender/main.o build/src/message.o build/src/convert_output.o 
 		$(CC) -g -o bin/test/RECEIVER_TEST build/test/receiver/main.o build/src/message.o build/src/convert_output.o 
 
@@ -38,6 +38,9 @@ message.o: src/data_structures/message.cpp
 
 convert_output.o: src/output_modification/convert_output.cpp
 	$(CC) -g -c $(CFLAGS) $(INCLUDECADMIUM) src/output_modification/convert_output.cpp -o build/src/convert_output.o
+	
+phase_observer.o: src/phase_observer/phase_observer.cpp
+	$(CC) -g -c $(CFLAGS) $(INCLUDECADMIUM) src/phase_observer/phase_observer.cpp -o build/src/phase_observer.o
 
 #CLEAN COMMANDS
 clean_all: clean_simulator clean_tests

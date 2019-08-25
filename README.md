@@ -68,6 +68,7 @@ data after a time period.
 2. input_abp_1.txt
 3. abp_output.txt
 4. converted_output.txt
+5. phase_output.txt
 	
 ##### doc [This folder contains documents related to project]
 1. alternatebitprot.pdf
@@ -84,6 +85,8 @@ data after a time period.
 	- message.cpp
 3. output_modification [This folder contains the header for output modification]
     - convert_output.hpp
+4. phase_observer [This folder contains the header for sender phase observer]
+    - phase_observer.hpp
 
 ##### lib [This folder contains the libraries/dependencies]
 1. cadmium [This folder contains cadmium files]
@@ -98,6 +101,8 @@ data after a time period.
 	- main.cpp
 3. output_modification
 	- convert_output.cpp
+4. phase_observer
+	- phase_observer.cpp
 
 ##### test [This folder contains the unit test for the different include files]
 1. data
@@ -111,9 +116,9 @@ data after a time period.
 
 	1. modified [this folder contains the modified test outputs]
 	  - converted_receiver_output.txt
-	  - converted_sender_output.txt
-	  - converted_subnet_output.txt
-
+		- converted_sender_output.txt
+		- converted_subnet_output.txt
+   
 2. src
 	1. receiver [This folder contains the unit test of the receiver]
 		- main.cpp
@@ -151,7 +156,7 @@ Then run the following command from terminal to clone the project along with the
 		- Open the terminal. Press in your keyboard Ctrl+Alt+t
 
 		- Set the command prompt to base folder where makefile is. Set the terminal path to this folder.
-    
+
 			> Example: cd ../AlternateBitProtocol/
 		
 		- To compile the test, type in the terminal:
@@ -165,7 +170,7 @@ Then run the following command from terminal to clone the project along with the
 		- To check the output of the test simulation, goto /test/data folder and you can see following files:
 			"subnet_test_output.txt" - Initial subnet simulator output
 			"modified/converted_subnet_output.txt" - Modified output for Part D of the project.
-			
+
 	2. To run receiver and sender tests, the steps are analogous to 1
 			
 4. **Run the simulator**
@@ -179,16 +184,16 @@ Then run the following command from terminal to clone the project along with the
 
 		> make clean_simulator; make simulator
 
-	4. To run the simulation, goto the project root and type in the terminal 
+	4. To run the simulation, from the project root, type in the terminal 
 
 		> ./NAME_OF_THE_COMPLIED_FILE path and NAME_OF_THE_INPUT_FILE. For this test you need to type: 
 
 		> ./bin/src/ABP ./data/input_abp_1.txt
 
 	5. To check the output of the simulation, goto /data folder and you can see following files:
-		"abp_output.txt" - Initial simulator output
+		  "abp_output.txt" - Initial simulator output
 	    "converted_output.txt" - Modified output for Part D of the project.
-
+      
 	6.  To execute the simulator with different inputs
 		1. Create new .txt files with the same structure as input_abp_0.txt or input_abp_1.txt
 		2. Run the simulator using the instructions in step 4
@@ -197,8 +202,11 @@ Then run the following command from terminal to clone the project along with the
 
 			> Example: mv abp_output.txt abp_output_0.txt
 			
+	7.  The active, passive and overall time for sender component in simulator is recorded while simulator build. This work is done towards part E of the project. It considers the 'converted_output.txt' file from part D as its input to determine the phase timings.  This 'converted_output.txt' file in part D was generated using ./data/input_abp_1.txt.
+		This output of this feature (Part E) is stored in 'phase_output.txt' under /data folder.
+			
 **NOTE** - To run both the simulator and tests together, the following commands can be used from the project root. The output files will be according to the paths described above.
 			
 			> make clean_all; make all
-
+			
 		 		

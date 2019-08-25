@@ -23,9 +23,11 @@
 #include "../../include/atomics/receiver_cadmium.hpp"
 #include "../../include/atomics/subnet_cadmium.hpp"
 #include "../../include/output_modification/convert_output.hpp"
+#include "../../include/phase_observer/phase_observer.hpp"
 
-#define SIMULATOR_OUTPUT_PATH "data/abp_output.txt"
-#define MODIFIED_OUTPUT_FILE "data/converted_output.txt"
+#define SIMULATOR_OUTPUT_PATH "./data/abp_output.txt"
+#define MODIFIED_OUTPUT_FILE "./data/converted_output.txt"
+#define SENDER_PHASE_OUTPUT_FILE "./data/phase_output.txt"
 
 using namespace std;
 
@@ -57,11 +59,12 @@ public:
 
 int main(int argc, char ** argv) {
 
-  const char *sim_input = SIMULATOR_OUTPUT_PATH;
-  const char *sim_output = MODIFIED_OUTPUT_FILE;
+    const char *sim_input = SIMULATOR_OUTPUT_PATH;
+    const char *sim_output = MODIFIED_OUTPUT_FILE;
+    const char *phase_output = SENDER_PHASE_OUTPUT_FILE;
 
   if (argc < 2) {
-   cout << "you are using this program with wrong parameters. Te program should be invoked as follow:";
+   cout << "you are using this program with wrong parameters. The program should be invoked as follow:";
    cout << argv[0] << " path to the input file " << endl;
    return 1; 
   }
@@ -69,7 +72,7 @@ int main(int argc, char ** argv) {
   auto start = hclock::now(); //to measure simulation execution time
 
 /*************** Loggers *******************/
-  static std::ofstream out_data("data/abp_output.txt");
+  static std::ofstream out_data(SIMULATOR_OUTPUT_PATH);
     struct oss_sink_provider{
         static std::ostream& sink(){          
             return out_data;
@@ -217,9 +220,15 @@ std::shared_ptr<cadmium::dynamic::modeling::coupled<TIME>> TOP = std::make_share
     cout << "Simulation took:" << elapsed << "sec" << endl;
 
     /**
-    * Convert the simulator receiver output into required format
+    * Convert the simulator output into required format
     */
     convert_output(sim_input, sim_output);
+
+    /**
+    * Part E
+    * Convert the simulator output to phase wise time elapsed
+    */
+    phase_observer(sim_output, phase_output);
 
     return 0;
 }
