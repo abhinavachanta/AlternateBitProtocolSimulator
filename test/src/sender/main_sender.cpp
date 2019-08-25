@@ -26,6 +26,12 @@
 #include "../../../lib/vendor/iestream.hpp"
 #include "../../../include/data_structures/message.hpp"
 #include "../../../include/atomics/sender_cadmium.hpp"
+#include "../../../include/output_modification/convert_output.hpp"
+
+#define SENDER_SIMULATOR_OUTPUT_PATH "./test/data/sender_test_output.txt"
+#define SENDER_MODIFIED_OUTPUT_PATH "./test/data/modified/converted_sender_output.txt"
+#define SENDER_INPUT_DATA_CONTROL "./test/data/sender_input_test_control_In.txt"
+#define SENDER_INPUT_ACK_CONTROL "./test/data/sender_input_test_ack_In.txt"
 
 using namespace std;
 using high_resolution_clock = chrono::high_resolution_clock;
@@ -66,6 +72,9 @@ template <typename T>
 
 int main() {
 
+    char sim_input[] = SENDER_SIMULATOR_OUTPUT_PATH;
+    char sim_output[] = SENDER_MODIFIED_OUTPUT_PATH;
+
     /** 
      * variable to measure simulation execution time
      */
@@ -75,7 +84,7 @@ int main() {
      * The execution logs and messages are saved to the 
      * 'sender_test_output.txt' file
      */
-    static std::ofstream out_data("test/data/sender_test_output.txt");
+    static std::ofstream out_data(SENDER_SIMULATOR_OUTPUT_PATH);
 
     /**
      * Structure which invokes the ostream sink function
@@ -124,7 +133,7 @@ int main() {
      * Specify the input control file and set it as 
      * input data control for execution of the sender component
      */
-    string input_data_control = "test/data/sender_input_test_control_In.txt"; 
+    string input_data_control = SENDER_INPUT_DATA_CONTROL; 
     const char *i_input_data_control = input_data_control.c_str();
 
     /**
@@ -141,7 +150,7 @@ int main() {
      * Specify the input acknowledgement file and set it as
      * input data acknowledgement for execution of the sender component
      */
-    string input_data_ack = "test/data/sender_input_test_ack_In.txt"; 
+    string input_data_ack = SENDER_INPUT_ACK_CONTROL; 
     const char *i_input_data_ack = input_data_ack.c_str();
 
     /**
@@ -231,5 +240,11 @@ int main() {
     auto elapsed = std::chrono::duration_cast <std::chrono::duration<double,
                    std::ratio < 1>>> (high_resolution_clock::now() - start).count();
     cout << "Simulation took:" << elapsed << "sec" << endl;
+
+    /**
+    * Convert the simulator sender output into required format
+    */
+    convert_output(sim_input, sim_output);
+
     return 0;
 }

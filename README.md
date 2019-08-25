@@ -184,7 +184,6 @@ Then run the following command from terminal to clone the project along with the
 
 		> make clean_simulator; make simulator
 
-
 	4. To run the simulation, from the project root, type in the terminal 
 
 		> ./NAME_OF_THE_COMPLIED_FILE path and NAME_OF_THE_INPUT_FILE. For this test you need to type: 
@@ -209,7 +208,5 @@ Then run the following command from terminal to clone the project along with the
 **NOTE** - To run both the simulator and tests together, the following commands can be used from the project root. The output files will be according to the paths described above.
 			
 			> make clean_all; make all
-			
-
 			
 		 		

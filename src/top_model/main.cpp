@@ -25,7 +25,6 @@
 #include "../../include/output_modification/convert_output.hpp"
 #include "../../include/phase_observer/phase_observer.hpp"
 
-
 #define SIMULATOR_OUTPUT_PATH "./data/abp_output.txt"
 #define MODIFIED_OUTPUT_FILE "./data/converted_output.txt"
 #define SENDER_PHASE_OUTPUT_FILE "./data/phase_output.txt"
