@@ -1,0 +1,6 @@
+bin/src/*.exe
+bin/test/*.exe
+build/src/*.o
+build/test/receiver/*.o
+build/test/sender/*.o
+build/test/subnet/*.o
